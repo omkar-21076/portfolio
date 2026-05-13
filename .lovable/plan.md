@@ -1,26 +1,19 @@
-## Switch headings to Inter
+## Add larger thumbnails on the left of project cards
 
-Replace Instrument Serif with Inter across all headings, keeping the minimal aesthetic but with a single typeface system.
+### Generate thumbnails
+Create three minimal mockup images in the warm beige + ink black palette, 4:3 aspect, saved to `src/assets/`:
+- `work-legal-dms.jpg` — minimal Outlook-style email pane with a "File to SharePoint" panel.
+- `work-compliance-companion.jpg` — minimal stepper/form UI showing guided compliance steps.
+- `work-eatsure.jpg` — minimal mobile checkout with an influencer pick widget.
 
-### Changes
+All rendered as flat, low-detail UI mockups (no realistic photography, no logos), beige background, ink-black strokes/type, soft shadow — matching the portfolio's minimal aesthetic.
 
-1. **`src/styles.css`**
-   - Update `--font-serif` token to use Inter (keep the variable name to avoid touching every component, OR repoint heading rules to `--font-sans`).
-   - In `@layer base`, set `h1–h4` to `var(--font-sans)`, weight `500–600`, tighter tracking (`-0.02em`) for elegance at large sizes.
-   - Drop the `.font-serif` utility's serif stack so any leftover usage renders in Inter.
-   - Remove italic styling reliance.
-
-2. **`src/routes/__root.tsx`**
-   - Remove `Instrument+Serif` from the Google Fonts URL; load only Inter (add weight `700` for stronger headings).
-
-3. **Components using `font-serif` + `italic`**
-   - `Hero.tsx`, `About.tsx`, `Work.tsx`, `Visuals.tsx`, `Writing.tsx`, `Contact.tsx`, `SiteHeader.tsx` (logo), `SiteFooter.tsx`, `__root.tsx` (404).
-   - Keep the `font-serif` className (now mapped to Inter) so structure stays intact.
-   - Remove `italic` modifiers — Inter italic looks weak for display use; rely on weight/size for hierarchy instead.
-   - Slightly reduce the largest hero size if needed for balance (Inter at 7rem reads heavier than serif).
-
-### Why keep the `font-serif` class name
-Renaming everywhere would be a large diff with no visual benefit. Repointing the token keeps the change minimal and reversible.
+### Update `src/components/Work.tsx`
+- Add `image: string` to each project entry, importing the three assets.
+- Restructure the card grid: on desktop use `md:grid-cols-[280px_1fr_auto]`; the left column becomes the thumbnail (`aspect-[4/3]`, rounded, border, `object-cover`, `loading="lazy"`).
+- Move the `01 / 02 / 03` number above the title (small muted label) so the number is preserved.
+- On mobile the thumbnail stacks on top, full width.
+- Keep hover state, tags, arrow icon, and Reveal animation unchanged.
 
 ### Out of scope
-No layout, color, spacing, or content changes.
+No copy changes, no other sections, no new dependencies.
