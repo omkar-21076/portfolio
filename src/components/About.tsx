@@ -11,9 +11,9 @@ export function About() {
           <Reveal delay={0.05}>
             <h2 className="font-serif text-4xl leading-tight md:text-5xl">
               Three years designing enterprise software with a bias toward
-              <span className="italic"> clarity</span>,
-              <span className="italic"> consistency</span>, and
-              <span className="italic"> accessibility</span>.
+              <span className="text-muted-foreground"> clarity</span>,
+              <span className="text-muted-foreground"> consistency</span>, and
+              <span className="text-muted-foreground"> accessibility</span>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
