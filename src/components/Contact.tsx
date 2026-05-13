@@ -19,7 +19,7 @@ export function Contact() {
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="font-serif text-5xl leading-tight md:text-7xl">
-            Let's <span className="italic">talk.</span>
+            Let's talk.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
@@ -30,7 +30,7 @@ export function Contact() {
         <Reveal delay={0.15}>
           <a
             href="mailto:hello@omkarraut.design"
-            className="mt-10 inline-block font-serif text-2xl italic underline decoration-1 underline-offset-8 transition-opacity hover:opacity-70 md:text-3xl"
+            className="mt-10 inline-block text-xl font-medium underline decoration-1 underline-offset-8 transition-opacity hover:opacity-70 md:text-2xl"
           >
             hello@omkarraut.design
           </a>

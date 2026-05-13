@@ -27,7 +27,7 @@ export function Hero() {
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="mt-6 max-w-xl font-serif text-2xl italic leading-snug text-foreground/90 md:text-3xl">
+          <p className="mt-6 max-w-xl text-xl font-normal leading-snug text-foreground/90 md:text-2xl">
             I turn complex enterprise workflows into simple, accessible products.
           </p>
         </Reveal>
