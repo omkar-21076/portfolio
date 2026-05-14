@@ -1,14 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Work } from "@/components/Work";
+import { createFileRoute, Navigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/work/")({
-  head: () => ({
-    meta: [
-      { title: "Work — Omkar Raut" },
-      { name: "description", content: "Selected UX projects: Legal DMS, Compliance Companion, and Eatsure." },
-      { property: "og:title", content: "Work — Omkar Raut" },
-      { property: "og:description", content: "Selected enterprise and consumer UX projects." },
-    ],
-  }),
-  component: () => <div className="pt-10"><Work /></div>,
+  component: () => <Navigate to="/" hash="work" replace />,
 });
