@@ -15,6 +15,7 @@ import { Route as VisualsRouteImport } from './routes/visuals'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkLegalDmsRouteImport } from './routes/work.legal-dms'
 import { Route as WorkEatsureRouteImport } from './routes/work.eatsure'
 import { Route as WorkComplianceCompanionRouteImport } from './routes/work.compliance-companion'
@@ -49,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkIndexRoute = WorkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkRoute,
+} as any)
 const WorkLegalDmsRoute = WorkLegalDmsRouteImport.update({
   id: '/legal-dms',
   path: '/legal-dms',
@@ -75,17 +81,18 @@ export interface FileRoutesByFullPath {
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/visuals': typeof VisualsRoute
-  '/work': typeof WorkRouteWithChildren
   '/writing': typeof WritingRoute
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
+  '/work': typeof WorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +105,7 @@ export interface FileRoutesById {
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
+  '/work/': typeof WorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,17 +119,18 @@ export interface FileRouteTypes {
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
+    | '/work/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
     | '/visuals'
-    | '/work'
     | '/writing'
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
+    | '/work'
   id:
     | '__root__'
     | '/'
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
+    | '/work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work/': {
+      id: '/work/'
+      path: '/'
+      fullPath: '/work/'
+      preLoaderRoute: typeof WorkIndexRouteImport
+      parentRoute: typeof WorkRoute
+    }
     '/work/legal-dms': {
       id: '/work/legal-dms'
       path: '/legal-dms'
@@ -216,12 +233,14 @@ interface WorkRouteChildren {
   WorkComplianceCompanionRoute: typeof WorkComplianceCompanionRoute
   WorkEatsureRoute: typeof WorkEatsureRoute
   WorkLegalDmsRoute: typeof WorkLegalDmsRoute
+  WorkIndexRoute: typeof WorkIndexRoute
 }
 
 const WorkRouteChildren: WorkRouteChildren = {
   WorkComplianceCompanionRoute: WorkComplianceCompanionRoute,
   WorkEatsureRoute: WorkEatsureRoute,
   WorkLegalDmsRoute: WorkLegalDmsRoute,
+  WorkIndexRoute: WorkIndexRoute,
 }
 
 const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
@@ -237,3 +256,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
