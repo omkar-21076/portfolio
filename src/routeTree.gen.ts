@@ -15,6 +15,9 @@ import { Route as VisualsRouteImport } from './routes/visuals'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkLegalDmsRouteImport } from './routes/work.legal-dms'
+import { Route as WorkEatsureRouteImport } from './routes/work.eatsure'
+import { Route as WorkComplianceCompanionRouteImport } from './routes/work.compliance-companion'
 
 const WritingRoute = WritingRouteImport.update({
   id: '/writing',
@@ -46,22 +49,43 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkLegalDmsRoute = WorkLegalDmsRouteImport.update({
+  id: '/legal-dms',
+  path: '/legal-dms',
+  getParentRoute: () => WorkRoute,
+} as any)
+const WorkEatsureRoute = WorkEatsureRouteImport.update({
+  id: '/eatsure',
+  path: '/eatsure',
+  getParentRoute: () => WorkRoute,
+} as any)
+const WorkComplianceCompanionRoute = WorkComplianceCompanionRouteImport.update({
+  id: '/compliance-companion',
+  path: '/compliance-companion',
+  getParentRoute: () => WorkRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/visuals': typeof VisualsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
   '/writing': typeof WritingRoute
+  '/work/compliance-companion': typeof WorkComplianceCompanionRoute
+  '/work/eatsure': typeof WorkEatsureRoute
+  '/work/legal-dms': typeof WorkLegalDmsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/visuals': typeof VisualsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
   '/writing': typeof WritingRoute
+  '/work/compliance-companion': typeof WorkComplianceCompanionRoute
+  '/work/eatsure': typeof WorkEatsureRoute
+  '/work/legal-dms': typeof WorkLegalDmsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,14 +93,35 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/visuals': typeof VisualsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
   '/writing': typeof WritingRoute
+  '/work/compliance-companion': typeof WorkComplianceCompanionRoute
+  '/work/eatsure': typeof WorkEatsureRoute
+  '/work/legal-dms': typeof WorkLegalDmsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/visuals' | '/work' | '/writing'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/visuals'
+    | '/work'
+    | '/writing'
+    | '/work/compliance-companion'
+    | '/work/eatsure'
+    | '/work/legal-dms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/visuals' | '/work' | '/writing'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/visuals'
+    | '/work'
+    | '/writing'
+    | '/work/compliance-companion'
+    | '/work/eatsure'
+    | '/work/legal-dms'
   id:
     | '__root__'
     | '/'
@@ -85,6 +130,9 @@ export interface FileRouteTypes {
     | '/visuals'
     | '/work'
     | '/writing'
+    | '/work/compliance-companion'
+    | '/work/eatsure'
+    | '/work/legal-dms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,7 +140,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   VisualsRoute: typeof VisualsRoute
-  WorkRoute: typeof WorkRoute
+  WorkRoute: typeof WorkRouteWithChildren
   WritingRoute: typeof WritingRoute
 }
 
@@ -140,27 +188,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work/legal-dms': {
+      id: '/work/legal-dms'
+      path: '/legal-dms'
+      fullPath: '/work/legal-dms'
+      preLoaderRoute: typeof WorkLegalDmsRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/work/eatsure': {
+      id: '/work/eatsure'
+      path: '/eatsure'
+      fullPath: '/work/eatsure'
+      preLoaderRoute: typeof WorkEatsureRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/work/compliance-companion': {
+      id: '/work/compliance-companion'
+      path: '/compliance-companion'
+      fullPath: '/work/compliance-companion'
+      preLoaderRoute: typeof WorkComplianceCompanionRouteImport
+      parentRoute: typeof WorkRoute
+    }
   }
 }
+
+interface WorkRouteChildren {
+  WorkComplianceCompanionRoute: typeof WorkComplianceCompanionRoute
+  WorkEatsureRoute: typeof WorkEatsureRoute
+  WorkLegalDmsRoute: typeof WorkLegalDmsRoute
+}
+
+const WorkRouteChildren: WorkRouteChildren = {
+  WorkComplianceCompanionRoute: WorkComplianceCompanionRoute,
+  WorkEatsureRoute: WorkEatsureRoute,
+  WorkLegalDmsRoute: WorkLegalDmsRoute,
+}
+
+const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   VisualsRoute: VisualsRoute,
-  WorkRoute: WorkRoute,
+  WorkRoute: WorkRouteWithChildren,
   WritingRoute: WritingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
