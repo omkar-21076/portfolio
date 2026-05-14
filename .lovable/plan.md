@@ -1,39 +1,50 @@
-# Fix: Nav links should scroll between sections, not isolate them
+## Hero redesign — Architectural breakout
 
-## Problem
+Replace the current centered Hero (small circle portrait above a serif name) with a two-column editorial composition where the portrait becomes a tall framed image with layered architectural details, and the name + intro sit beside it.
 
-Right now `/work`, `/visuals`, `/writing`, `/about`, `/contact` each render only their own section in isolation. When the user clicks a menu item, they land on a page that contains only that one section — scrolling reveals nothing else, so the site feels stuck on whatever was clicked.
+### Layout
 
-The intent is a single scrollable page (the home route already stacks Hero → About → Work → Visuals → Writing → Contact) where the menu jumps to a section but the user can still scroll up/down through the rest.
+```text
+[ eyebrow rule + role label                      ]   [ aspect 3/4 portrait ]
+[                                                ]   [  · offset hairline  ]
+[ Omkar                                          ]   [  · soft blur shape  ]
+[       Raut (italic, indented)                  ]   [  · grayscale image  ]
+[                                                ]   [  · "OR" overlay     ]
+[ tagline (~2 lines)                             ]   [  · 2024 corner tag  ]
+[                                                ]   [  · circle dot below ]
+[ See selected work →  (with circle arrow)       ]
+```
 
-## Plan
+- Left column: 7/12 cols on lg, full width on mobile.
+- Right column: 5/12 cols on lg, image stacks below the text on mobile.
+- Background stays cream (existing token).
 
-1. **Turn top-level nav into in-page section links on the home route.**
-   - Give each section component a stable `id` (`about`, `work`, `visuals`, `writing`, `contact`) — most already have it; verify and add where missing.
-   - In `SiteHeader`, change links from `<Link to="/work">` etc. to anchor-style navigation that goes to `/` and scrolls to `#section`. Use TanStack Router's `Link` with `to="/"` + `hash="work"` so it works from any route (clicking "Work" from `/about` navigates home and scrolls to the Work section).
-   - Keep the logo link as `to="/"` (no hash).
+### Image treatment
 
-2. **Handle hash scrolling on the home route.**
-   - In `src/routes/index.tsx`, on mount and on hash change, scroll the matching `#id` element into view (smooth, accounting for the sticky 64px header). This makes `/#work` land at the Work section.
+- Replace circular avatar with tall `aspect-[3/4]` framed portrait (max ~420px wide).
+- Use existing `portrait-placeholder.svg` as the image source until a real photo is added.
+- Apply grayscale + slow scale-on-hover.
+- Layered details:
+  - Outer hairline border, slightly rotated, offset by ~16px.
+  - Soft blurred cream shape behind for depth.
+  - Faint italic "OR" monogram overlaid bottom-left of the image.
+  - Small dark square in the top-right corner with vertical "2024" label.
+  - Small outlined circle with center dot at bottom-left, breaking the frame.
 
-3. **Retire the standalone section routes (or repurpose as redirects).**
-   - Delete `src/routes/about.tsx`, `visuals.tsx`, `writing.tsx`, `contact.tsx` (and `work.index.tsx` + the `work.tsx` layout if no longer needed for case studies).
-   - **Exception**: `/work/legal-dms`, `/work/compliance-companion`, `/work/eatsure` case studies must keep working. Easiest path: keep `src/routes/work.tsx` as an `<Outlet />` layout, drop `work.index.tsx`, and have the home page's "Work" section continue linking into the case study routes. Visiting bare `/work` can either 404 or redirect to `/#work` — recommend redirect via a tiny `work.index.tsx` that calls `<Navigate to="/" hash="work" replace />`.
+### Typography
 
-4. **Active-state styling.**
-   - Replace `activeProps` (which compared route paths) with a small scroll-spy: an `IntersectionObserver` in `SiteHeader` watches the section ids and marks the matching nav link as active. Falls back to no active state on non-home routes (case studies).
+- Keep current serif for the name; render as two lines: `Omkar` then italic `Raut` indented.
+- Eyebrow: short hairline rule + uppercase tracked role label ("UX Designer at Siemens Healthineers").
+- Tagline keeps current copy.
+- CTA: "See selected work" underline + circular arrow button (hover fills dark).
 
-## Technical notes
+### Files to change
 
-- TanStack Router supports `<Link to="/" hash="work">`; the resulting URL is `/#work` and triggers a route match on `/` plus a hash change the index route can react to.
-- Scroll offset: subtract header height (`64px`) when calling `scrollIntoView` — use `window.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' })`.
-- Mobile menu: same hash-link treatment, plus close the sheet on click (already wired).
-- No backend or styling-system changes; purely routing + a small effect in the index route and header.
+- `src/components/Hero.tsx` — full rewrite to the two-column structure above. Keep `<Reveal>` wrappers for entrance animation and the `<Link to="/work">` target.
+- Use design tokens from `src/styles.css` (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`) instead of hardcoded hex — the prototype's `#F5F1E8` / `#1A1A1A` map to existing tokens.
+- No new dependencies. No route or data changes. Mobile/tablet behaviour: stack to single column, image first or last (TBD during implementation — default: text first, image second).
 
-## Files touched
+### Out of scope
 
-- `src/components/SiteHeader.tsx` — link targets become `to="/" hash="..."`, add scroll-spy for active state.
-- `src/routes/index.tsx` — add `useEffect` that reads `location.hash` and scrolls to the section.
-- `src/components/{About,Work,Visuals,Writing,Contact}.tsx` — verify each has the right `id` on its outer `<section>`.
-- Delete `src/routes/{about,visuals,writing,contact}.tsx`.
-- `src/routes/work.index.tsx` — replace body with `<Navigate to="/" hash="work" replace />` (keep `work.tsx` outlet for case studies).
+- Generating a real photo (placeholder SVG stays).
+- Changing other sections, nav, or routing.
