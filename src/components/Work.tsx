@@ -1,5 +1,6 @@
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import legalDms from "@/assets/work-legal-dms.jpg";
 import compliance from "@/assets/work-compliance-companion.jpg";
 import eatsure from "@/assets/work-eatsure.jpg";
@@ -13,6 +14,7 @@ const projects = [
       "An in-house legal data management system with an Outlook add-in that lets teams file legal matters directly from Outlook to SharePoint.",
     tags: ["Enterprise", "Outlook Add-in", "SharePoint"],
     image: legalDms,
+    to: "/work/legal-dms" as const,
   },
   {
     n: "02",
@@ -22,6 +24,7 @@ const projects = [
       "A guided application that helps app owners stay compliant by walking them through the data they need to submit, step by step.",
     tags: ["Enterprise", "Forms", "Workflow"],
     image: compliance,
+    to: "/work/compliance-companion" as const,
   },
   {
     n: "03",
@@ -31,6 +34,7 @@ const projects = [
       "An embeddable influencer widget that increases average order value by surfacing curated picks at the right moment in checkout.",
     tags: ["Consumer", "Conversion"],
     image: eatsure,
+    to: "/work/eatsure" as const,
   },
 ];
 
