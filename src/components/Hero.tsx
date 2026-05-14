@@ -1,4 +1,4 @@
-import portrait from "@/assets/portrait-placeholder.svg";
+import portrait from "@/assets/portrait.jpg";
 import { Reveal } from "./Reveal";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
