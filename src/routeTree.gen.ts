@@ -9,40 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WritingRouteImport } from './routes/writing'
 import { Route as WorkRouteImport } from './routes/work'
-import { Route as VisualsRouteImport } from './routes/visuals'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkIndexRouteImport } from './routes/work.index'
 import { Route as WorkLegalDmsRouteImport } from './routes/work.legal-dms'
 import { Route as WorkEatsureRouteImport } from './routes/work.eatsure'
 import { Route as WorkComplianceCompanionRouteImport } from './routes/work.compliance-companion'
 
-const WritingRoute = WritingRouteImport.update({
-  id: '/writing',
-  path: '/writing',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
   path: '/work',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VisualsRoute = VisualsRouteImport.update({
-  id: '/visuals',
-  path: '/visuals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,11 +49,7 @@ const WorkComplianceCompanionRoute = WorkComplianceCompanionRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/visuals': typeof VisualsRoute
   '/work': typeof WorkRouteWithChildren
-  '/writing': typeof WritingRoute
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
@@ -85,10 +57,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/visuals': typeof VisualsRoute
-  '/writing': typeof WritingRoute
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
@@ -97,11 +65,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/visuals': typeof VisualsRoute
   '/work': typeof WorkRouteWithChildren
-  '/writing': typeof WritingRoute
   '/work/compliance-companion': typeof WorkComplianceCompanionRoute
   '/work/eatsure': typeof WorkEatsureRoute
   '/work/legal-dms': typeof WorkLegalDmsRoute
@@ -111,11 +75,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/contact'
-    | '/visuals'
     | '/work'
-    | '/writing'
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
@@ -123,10 +83,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/contact'
-    | '/visuals'
-    | '/writing'
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
@@ -134,11 +90,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/contact'
-    | '/visuals'
     | '/work'
-    | '/writing'
     | '/work/compliance-companion'
     | '/work/eatsure'
     | '/work/legal-dms'
@@ -147,48 +99,16 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ContactRoute: typeof ContactRoute
-  VisualsRoute: typeof VisualsRoute
   WorkRoute: typeof WorkRouteWithChildren
-  WritingRoute: typeof WritingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/writing': {
-      id: '/writing'
-      path: '/writing'
-      fullPath: '/writing'
-      preLoaderRoute: typeof WritingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/work': {
       id: '/work'
       path: '/work'
       fullPath: '/work'
       preLoaderRoute: typeof WorkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/visuals': {
-      id: '/visuals'
-      path: '/visuals'
-      fullPath: '/visuals'
-      preLoaderRoute: typeof VisualsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -247,11 +167,7 @@ const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ContactRoute: ContactRoute,
-  VisualsRoute: VisualsRoute,
   WorkRoute: WorkRouteWithChildren,
-  WritingRoute: WritingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
