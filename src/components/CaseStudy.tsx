@@ -7,26 +7,51 @@ export type CaseStudyNav = {
   label: string;
 };
 
+export type CaseStudyScreen = {
+  title: string;
+  image: string;
+  caption?: string;
+};
+
 export type CaseStudyProps = {
   number: string;
   name: string;
   tagline: string;
   heroImage: string;
-  meta: { role: string; timeline: string; team: string; platform: string };
+  meta: {
+    role: string;
+    platform: string;
+    timeline?: string;
+    team?: string;
+  };
   context: string;
-  problem: string;
-  goals: string[];
-  research: { intro: string; insights: { quote: string; source: string }[] };
-  flowImage: string;
-  explorationImages: [string, string];
-  solution: { text: string; image: string };
-  outcomes: { value: string; label: string }[];
-  reflection: string;
+  focusAreas?: string[];
+  problem?: string;
+  challenge?: string;
+  goals?: string[];
+  research?: { intro: string; insights: { quote: string; source: string }[] };
+  flowImage?: string;
+  explorationImages?: [string, string];
+  screens?: CaseStudyScreen[];
+  solution?: { text: string; image: string };
+  constraints?: string[];
+  collaboration?: string;
+  outcomes?: { value: string; label: string }[];
+  impact?: string[];
+  reflection?: string;
+  learnings?: string[];
   prev?: CaseStudyNav;
   next?: CaseStudyNav;
 };
 
 export function CaseStudy(p: CaseStudyProps) {
+  const metaItems = [
+    { k: "Role", v: p.meta.role },
+    p.meta.timeline ? { k: "Timeline", v: p.meta.timeline } : null,
+    p.meta.team ? { k: "Team", v: p.meta.team } : null,
+    { k: "Platform", v: p.meta.platform },
+  ].filter(Boolean) as { k: string; v: string }[];
+
   return (
     <article className="px-5 pb-24 pt-10 md:px-8 md:pb-32 md:pt-16">
       <div className="mx-auto max-w-6xl">
@@ -62,13 +87,12 @@ export function CaseStudy(p: CaseStudyProps) {
         </header>
 
         {/* Meta strip */}
-        <section className="mt-14 grid gap-6 border-y border-border py-8 md:grid-cols-4">
-          {[
-            { k: "Role", v: p.meta.role },
-            { k: "Timeline", v: p.meta.timeline },
-            { k: "Team", v: p.meta.team },
-            { k: "Platform", v: p.meta.platform },
-          ].map((m) => (
+        <section
+          className={`mt-14 grid gap-6 border-y border-border py-8 ${
+            metaItems.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3"
+          }`}
+        >
+          {metaItems.map((m) => (
             <div key={m.k}>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.k}</p>
               <p className="mt-2 text-sm">{m.v}</p>
@@ -76,142 +100,301 @@ export function CaseStudy(p: CaseStudyProps) {
           ))}
         </section>
 
-        {/* Context & problem */}
+        {/* Focus areas */}
+        {p.focusAreas && p.focusAreas.length > 0 && (
+          <section className="mt-12">
+            <Reveal>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Focus areas</p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {p.focusAreas.map((f) => (
+                  <li
+                    key={f}
+                    className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground"
+                  >
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
+
+        {/* Context (+ optional problem) */}
         <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
           <Reveal>
             <h2 className="font-serif text-3xl md:text-4xl">Context</h2>
           </Reveal>
           <Reveal delay={0.05}>
             <div className="space-y-6">
-              <p className="text-base leading-relaxed">{p.context}</p>
-              <div className="rounded-lg border border-border bg-card p-6">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Problem statement</p>
-                <p className="mt-3 font-serif text-xl leading-snug">{p.problem}</p>
-              </div>
+              <p className="text-base leading-relaxed whitespace-pre-line">{p.context}</p>
+              {p.problem && (
+                <div className="rounded-lg border border-border bg-card p-6">
+                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    Problem statement
+                  </p>
+                  <p className="mt-3 font-serif text-xl leading-snug">{p.problem}</p>
+                </div>
+              )}
             </div>
           </Reveal>
         </section>
+
+        {/* Challenge */}
+        {p.challenge && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Challenge</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="text-base leading-relaxed whitespace-pre-line">{p.challenge}</p>
+            </Reveal>
+          </section>
+        )}
 
         {/* Goals */}
-        <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Goals &amp; success metrics</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <ul className="space-y-3">
-              {p.goals.map((g, i) => (
-                <li key={i} className="flex gap-3 text-base leading-relaxed">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
-                  {g}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
+        {p.goals && p.goals.length > 0 && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Goals &amp; success metrics</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="space-y-3">
+                {p.goals.map((g, i) => (
+                  <li key={i} className="flex gap-3 text-base leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                    {g}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
 
         {/* Research */}
-        <section className="mt-20">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Research</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.research.intro}</p>
-          </Reveal>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {p.research.insights.map((i, idx) => (
-              <Reveal key={idx} delay={0.05 * idx}>
-                <blockquote className="h-full rounded-lg border border-border bg-card p-6">
-                  <p className="font-serif text-xl leading-snug">&ldquo;{i.quote}&rdquo;</p>
-                  <footer className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {i.source}
-                  </footer>
-                </blockquote>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {p.research && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Research</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.research.intro}</p>
+            </Reveal>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {p.research.insights.map((i, idx) => (
+                <Reveal key={idx} delay={0.05 * idx}>
+                  <blockquote className="h-full rounded-lg border border-border bg-card p-6">
+                    <p className="font-serif text-xl leading-snug">&ldquo;{i.quote}&rdquo;</p>
+                    <footer className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                      {i.source}
+                    </footer>
+                  </blockquote>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* IA / flow */}
-        <section className="mt-20">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Information architecture</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
-              A simplified flow that maps user intent to system response, removing
-              detours and reducing the number of decisions at each step.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-10 overflow-hidden rounded-lg border border-border">
-              <img src={p.flowImage} alt="User flow" className="aspect-[16/9] w-full object-cover" />
-            </div>
-          </Reveal>
-        </section>
+        {p.flowImage && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Information architecture</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
+                A simplified flow that maps user intent to system response, removing
+                detours and reducing the number of decisions at each step.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="mt-10 overflow-hidden rounded-lg border border-border">
+                <img src={p.flowImage} alt="User flow" className="aspect-[16/9] w-full object-cover" />
+              </div>
+            </Reveal>
+          </section>
+        )}
 
         {/* Explorations */}
-        <section className="mt-20">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Design explorations</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Several directions were tested before converging. Each option was
-              evaluated against the core success metrics and validated with users.
-            </p>
-          </Reveal>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {p.explorationImages.map((src, i) => (
-              <Reveal key={i} delay={0.05 * i}>
-                <div className="overflow-hidden rounded-lg border border-border">
-                  <img src={src} alt={`Exploration ${i + 1}`} className="aspect-[4/3] w-full object-cover" />
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {p.explorationImages && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Design explorations</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground">
+                Several directions were tested before converging. Each option was
+                evaluated against the core success metrics and validated with users.
+              </p>
+            </Reveal>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {p.explorationImages.map((src, i) => (
+                <Reveal key={i} delay={0.05 * i}>
+                  <div className="overflow-hidden rounded-lg border border-border">
+                    <img
+                      src={src}
+                      alt={`Exploration ${i + 1}`}
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Screens gallery */}
+        {p.screens && p.screens.length > 0 && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Key screens</h2>
+            </Reveal>
+            <div className="mt-10 space-y-12">
+              {p.screens.map((s, i) => (
+                <Reveal key={i} delay={0.05 * i}>
+                  <figure>
+                    <div className="overflow-hidden rounded-lg border border-border bg-card">
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        className="w-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <figcaption className="mt-4">
+                      <p className="font-serif text-xl">{s.title}</p>
+                      {s.caption && (
+                        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{s.caption}</p>
+                      )}
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Final solution */}
-        <section className="mt-20">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Final solution</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.solution.text}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-10 overflow-hidden rounded-lg border border-border">
-              <img src={p.solution.image} alt="Final solution" className="aspect-[16/9] w-full object-cover" />
-            </div>
-          </Reveal>
-        </section>
+        {p.solution && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Final solution</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.solution.text}</p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="mt-10 overflow-hidden rounded-lg border border-border">
+                <img
+                  src={p.solution.image}
+                  alt="Final solution"
+                  className="aspect-[16/9] w-full object-cover"
+                />
+              </div>
+            </Reveal>
+          </section>
+        )}
 
-        {/* Outcomes */}
-        <section className="mt-20">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Outcome &amp; impact</h2>
-          </Reveal>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {p.outcomes.map((o, i) => (
-              <Reveal key={i} delay={0.05 * i}>
-                <div className="rounded-lg border border-border bg-card p-8">
-                  <p className="font-serif text-4xl md:text-5xl">{o.value}</p>
-                  <p className="mt-3 text-sm text-muted-foreground">{o.label}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {/* Constraints */}
+        {p.constraints && p.constraints.length > 0 && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Constraints</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="space-y-3">
+                {p.constraints.map((c, i) => (
+                  <li key={i} className="flex gap-3 text-base leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
+
+        {/* Collaboration */}
+        {p.collaboration && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Collaboration &amp; delivery</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="text-base leading-relaxed whitespace-pre-line">{p.collaboration}</p>
+            </Reveal>
+          </section>
+        )}
+
+        {/* Outcomes (numeric) */}
+        {p.outcomes && p.outcomes.length > 0 && (
+          <section className="mt-20">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Outcome &amp; impact</h2>
+            </Reveal>
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {p.outcomes.map((o, i) => (
+                <Reveal key={i} delay={0.05 * i}>
+                  <div className="rounded-lg border border-border bg-card p-8">
+                    <p className="font-serif text-4xl md:text-5xl">{o.value}</p>
+                    <p className="mt-3 text-sm text-muted-foreground">{o.label}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Impact (qualitative) */}
+        {p.impact && p.impact.length > 0 && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Impact</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="space-y-3">
+                {p.impact.map((c, i) => (
+                  <li key={i} className="flex gap-3 text-base leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
 
         {/* Reflection */}
-        <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
-          <Reveal>
-            <h2 className="font-serif text-3xl md:text-4xl">Reflection</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <p className="text-base leading-relaxed">{p.reflection}</p>
-          </Reveal>
-        </section>
+        {p.reflection && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Reflection</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="text-base leading-relaxed">{p.reflection}</p>
+            </Reveal>
+          </section>
+        )}
+
+        {/* Learnings */}
+        {p.learnings && p.learnings.length > 0 && (
+          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-4xl">Learnings</h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="space-y-3">
+                {p.learnings.map((c, i) => (
+                  <li key={i} className="flex gap-3 text-base leading-relaxed">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
 
         {/* Prev / Next */}
         <nav className="mt-24 flex flex-col gap-4 border-t border-border pt-10 md:flex-row md:items-center md:justify-between">

@@ -1,53 +1,113 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CaseStudy } from "@/components/CaseStudy";
-import legalDms from "@/assets/work-legal-dms.jpg";
-import compliance from "@/assets/work-compliance-companion.jpg";
-import eatsure from "@/assets/work-eatsure.jpg";
+import hero from "@/assets/legal-dms-hero.png";
+import matters from "@/assets/legal-dms-matters.png";
+import outlook from "@/assets/legal-dms-outlook.png";
+import sidebar from "@/assets/legal-dms-sidebar.png";
+import forms from "@/assets/legal-dms-forms.png";
 
 export const Route = createFileRoute("/work/legal-dms")({
   head: () => ({
     meta: [
       { title: "Legal DMS — Case Study — Omkar Raut" },
-      { name: "description", content: "Filing legal matters from Outlook to SharePoint without leaving the inbox." },
+      {
+        name: "description",
+        content:
+          "UX for an M365-based legal document and matter management system, with an Outlook add-in for seamless email filing.",
+      },
       { property: "og:title", content: "Legal DMS — Case Study" },
-      { property: "og:description", content: "An Outlook add-in that turns email into structured legal records." },
-      { property: "og:image", content: legalDms },
+      {
+        property: "og:description",
+        content:
+          "A unified SharePoint + Outlook experience that lets legal teams file matters without leaving their inbox.",
+      },
+      { property: "og:image", content: hero },
     ],
   }),
   component: () => (
     <CaseStudy
       number="01"
       name="Legal DMS"
-      tagline="Filing legal matters from Outlook to SharePoint, without leaving the inbox."
-      heroImage={legalDms}
-      meta={{ role: "Lead UX Designer", timeline: "8 months, 2024", team: "2 designers, 4 engineers, 1 PM", platform: "Outlook add-in, SharePoint" }}
-      context="Legal teams spent hours each week copying email threads, attachments and metadata into the document management system. The handoff was manual, error-prone, and discouraged adoption of the central system of record."
-      problem="Lawyers should be able to file a matter into the DMS in under a minute, from inside the tool they already live in — Outlook."
-      goals={[
-        "Reduce time-to-file by 50% for high-volume matter teams.",
-        "Improve metadata accuracy so retrieval and audit are reliable.",
-        "Increase weekly active filing in the DMS by 25%.",
-        "Keep the experience accessible (WCAG 2.1 AA) across enterprise themes.",
-      ]}
-      research={{
-        intro: "We shadowed eight lawyers and three legal assistants across two regions, then ran a diary study for two weeks. The pattern was consistent: people knew where things should live, but the path to get them there was the friction.",
-        insights: [
-          { quote: "I batch my filing on Friday afternoon because doing it inline breaks my thinking.", source: "Senior Associate, M&A" },
-          { quote: "Half my filing errors come from picking the wrong matter from a list of 400.", source: "Legal Assistant" },
-        ],
+      tagline="A unified M365-based legal document and matter management system, with an Outlook add-in for seamless email filing."
+      heroImage={hero}
+      meta={{
+        role: "UX Designer",
+        platform: "SharePoint Online · Outlook add-in · Fluent UI",
       }}
-      flowImage={legalDms}
-      explorationImages={[compliance, eatsure]}
-      solution={{
-        text: "A side panel inside Outlook that detects matter context from the thread, prefills metadata, and files the email plus selected attachments into SharePoint with one confirmation. Smart defaults reduce the average filing action to three clicks.",
-        image: legalDms,
-      }}
-      outcomes={[
-        { value: "−62%", label: "Time-to-file per email" },
-        { value: "+38%", label: "Weekly active filers" },
-        { value: "4.6/5", label: "Internal satisfaction score" },
+      focusAreas={[
+        "UX Strategy",
+        "Workflow Optimization",
+        "Outlook Add-in Experience",
+        "Enterprise UX",
+        "Agile Collaboration",
+        "Fluent UI-based Design",
       ]}
-      reflection="The biggest unlock was not a new feature — it was removing steps. When the system inferred context the user already had in their head, trust grew quickly. Next, I would invest more in conflict resolution UX for ambiguous threads."
+      context={`The initiative focused on addressing increasing workload, fragmented tools, and inefficient processes faced by legal teams. Legal professionals needed a single, reliable environment to manage documents and matters, collaborate securely, and fulfil mandatory reporting obligations — without adding more tools or manual work.
+
+To address this, the organization established a unified, M365-based legal document and matter management solution using SharePoint Online as the foundation, supported by an Outlook add-in for seamless email filing, with a long-term vision of expanding into a full legal matter management platform.`}
+      challenge={`The existing landscape, built on multiple legacy systems, created silos, redundant efforts, and rising costs, while also limiting transparency and productivity.
+
+When I joined the project, development was already in progress and sprint timelines were fixed. UX had been planned as part of the team, but there was a strong assumption that introducing UX at this stage might increase developers' workload, complicate implementation, and delay upcoming deployments — rooted in the belief that UX often adds polish late in the process rather than enabling delivery.
+
+One of the first critical areas where UX played a role was email filing through the Outlook add-in — an action performed repeatedly by legal users under time pressure.`}
+      screens={[
+        {
+          title: "Legal DMS dashboard",
+          image: hero,
+          caption:
+            "SharePoint-based home that surfaces favourite matters, quick reporting, and entry points into Law Firm Management and the dashboard.",
+        },
+        {
+          title: "My Matters workspace",
+          image: matters,
+          caption:
+            "A clear table view with consistent column hierarchy, status pills, and quick switching between My, Favorite, and All Matters.",
+        },
+        {
+          title: "Outlook add-in — file mail to matter",
+          image: outlook,
+          caption:
+            "An inline panel in Outlook that lets users file the current mail and attachments to the right matter, without leaving the inbox.",
+        },
+        {
+          title: "Matter picker — three states",
+          image: sidebar,
+          caption:
+            "My Matters, Favorites, and Recent Matters share one consistent shell. Users land where they left off and can file in two taps.",
+        },
+        {
+          title: "Adverse Party forms & message center",
+          image: forms,
+          caption:
+            "Structured, repeatable form patterns with clear validation, success, and error states — all built within Fluent UI constraints.",
+        },
+      ]}
+      constraints={[
+        "Fixed sprint timelines with development already in progress.",
+        "Fluent UI component limitations.",
+        "Outlook add-in environment restrictions.",
+        "Existing SHS UI guidelines to align with.",
+        "Limited implementation flexibility for net-new components.",
+        "Developers did not have access to Figma — conventional design handoffs were not realistic.",
+      ]}
+      collaboration={`Instead of challenging assumptions directly, I focused first on alignment. I spent time understanding the technical ecosystem — particularly Fluent UI and SHS UI guidelines — from a developer's perspective: which components were fixed, where flexibility existed, and which constraints were non-negotiable.
+
+To support implementation, I ran walkthrough calls to explain design intent and interaction behavior, and produced detailed PDFs documenting CSS properties, spacing systems, typography, colors, and component behavior. Developers could implement confidently without friction.
+
+Over time, developers began involving UX earlier, ideas were validated before implementation, and collaboration became stronger across teams. What started as concern about increased workload evolved into shared ownership and faster execution.`}
+      impact={[
+        "Less rework and smoother deployments.",
+        "Stronger alignment across design, product, and engineering.",
+        "Improved implementation confidence within Fluent UI constraints.",
+        "Legacy system retirement and reduced reporting dependencies.",
+        "Productivity gains through streamlined workflows and automation — realized through adoption enabled by usable UX.",
+      ]}
+      learnings={[
+        "UX leadership is about prioritizing impact over output.",
+        "Embracing constraints early enables faster delivery.",
+        "Collaboration beyond traditional handoffs creates better outcomes.",
+        "UX can reduce friction and accelerate delivery when embedded thoughtfully within Agile environments.",
+      ]}
       next={{ to: "/work/compliance-companion", label: "Compliance Companion" }}
     />
   ),
