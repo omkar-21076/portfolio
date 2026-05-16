@@ -24,6 +24,9 @@ export const Route = createFileRoute("/work/legal-dms")({
       },
       { property: "og:image", content: hero },
     ],
+    links: [
+      { rel: "preload", as: "image", href: hero, fetchpriority: "high" },
+    ],
   }),
   component: () => (
     <CaseStudy
