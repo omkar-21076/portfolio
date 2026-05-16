@@ -1,7 +1,7 @@
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import legalDms from "@/assets/legal-dms-hero.png";
+import legalDms from "@/assets/work-legal-dms.jpg";
 import compliance from "@/assets/work-compliance-companion.jpg";
 import eatsure from "@/assets/work-eatsure.jpg";
 
