@@ -5,6 +5,7 @@ import matters from "@/assets/legal-dms-matters.png";
 import outlook from "@/assets/legal-dms-outlook.png";
 import sidebar from "@/assets/legal-dms-sidebar.png";
 import forms from "@/assets/legal-dms-forms.png";
+import landing from "@/assets/legal-dms-landing.png";
 
 export const Route = createFileRoute("/work/legal-dms")({
   head: () => ({
