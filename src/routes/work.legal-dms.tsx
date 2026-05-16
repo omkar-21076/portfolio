@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CaseStudy } from "@/components/CaseStudy";
-import hero from "@/assets/legal-dms-hero.png";
-import matters from "@/assets/legal-dms-matters.png";
-import outlook from "@/assets/legal-dms-outlook.png";
-import sidebar from "@/assets/legal-dms-sidebar.png";
-import forms from "@/assets/legal-dms-forms.png";
-import landing from "@/assets/legal-dms-landing.png";
+import hero from "@/assets/legal-dms-hero.webp";
+import matters from "@/assets/legal-dms-matters.webp";
+import outlook from "@/assets/legal-dms-outlook.webp";
+import sidebar from "@/assets/legal-dms-sidebar.webp";
+import forms from "@/assets/legal-dms-forms.webp";
+import landing from "@/assets/legal-dms-landing.webp";
 
 export const Route = createFileRoute("/work/legal-dms")({
   head: () => ({
