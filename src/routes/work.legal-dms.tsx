@@ -54,7 +54,7 @@ One of the first critical areas where UX played a role was email filing through 
       screens={[
         {
           title: "Legal DMS dashboard",
-          image: hero,
+          image: landing,
           caption:
             "SharePoint-based home that surfaces favourite matters, quick reporting, and entry points into Law Firm Management and the dashboard.",
         },
