@@ -81,6 +81,8 @@ export function CaseStudy(p: CaseStudyProps) {
                 src={p.heroImage}
                 alt={`${p.name} hero`}
                 className="aspect-[16/9] w-full object-cover"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           </Reveal>
