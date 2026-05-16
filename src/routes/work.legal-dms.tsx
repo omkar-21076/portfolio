@@ -5,6 +5,7 @@ import matters from "@/assets/legal-dms-matters.png";
 import outlook from "@/assets/legal-dms-outlook.png";
 import sidebar from "@/assets/legal-dms-sidebar.png";
 import forms from "@/assets/legal-dms-forms.png";
+import landing from "@/assets/legal-dms-landing.png";
 
 export const Route = createFileRoute("/work/legal-dms")({
   head: () => ({
@@ -53,7 +54,7 @@ One of the first critical areas where UX played a role was email filing through 
       screens={[
         {
           title: "Legal DMS dashboard",
-          image: hero,
+          image: landing,
           caption:
             "SharePoint-based home that surfaces favourite matters, quick reporting, and entry points into Law Firm Management and the dashboard.",
         },
