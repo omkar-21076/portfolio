@@ -141,7 +141,7 @@ The overall design approach focused on creating smaller and more understandable 
       ]}
       collaboration={`Research findings, usability issues, and accessibility concerns were continuously reviewed and prioritized with stakeholders, management teams, and developers throughout the project lifecycle.
 
-UX decisions were aligned closely with sprint planing to ensure implementation feasibility within ongoing development timelines. The process emphasized continuous validation, iterative delivery, and strong collaboration between UX and development teams to ensure that usability improvements remained technically feasible while still solving user problems effectively.`}
+UX decisions were aligned closely with sprint planning to ensure implementation feasibility within ongoing development timelines. The process emphasized continuous validation, iterative delivery, and strong collaboration between UX and development teams to ensure that usability improvements remained technically feasible while still solving user problems effectively.`}
       outcomes={[
         { value: "73%", label: "Found the new landing page more intuitive" },
         { value: "59%", label: "Found the redesigned entry creation easier to complete" },
