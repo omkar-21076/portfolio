@@ -305,15 +305,17 @@ export function CaseStudy(p: CaseStudyProps) {
             <Reveal delay={0.05}>
               <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.solution.text}</p>
             </Reveal>
-            <Reveal delay={0.1}>
-              <div className="mt-10 overflow-hidden rounded-lg border border-border">
-                <img
-                  src={p.solution.image}
-                  alt="Final solution"
-                  className="aspect-[16/9] w-full object-cover"
-                />
-              </div>
-            </Reveal>
+            {p.solution.image && (
+              <Reveal delay={0.1}>
+                <div className="mt-10 overflow-hidden rounded-lg border border-border">
+                  <img
+                    src={p.solution.image}
+                    alt="Final solution"
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            )}
           </section>
         )}
 
