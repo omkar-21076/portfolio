@@ -33,7 +33,7 @@ export type CaseStudyProps = {
   flowImage?: string;
   explorationImages?: [string, string];
   screens?: CaseStudyScreen[];
-  solution?: { text: string; image: string };
+  solution?: { text: string; image?: string };
   constraints?: string[];
   collaboration?: string;
   outcomes?: { value: string; label: string }[];
