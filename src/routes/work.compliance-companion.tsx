@@ -144,7 +144,7 @@ UX decisions were aligned closely with sprint planning to ensure implementation 
       outcomes={[
         { value: "73%", label: "Found the new landing page more intuitive" },
         { value: "59%", label: "Found the redesigned entry creation easier to complete" },
-        { value: "↑", label: "Chatbot adoption during compliance tasks" },
+        { value: "30%+", label: "Chatbot adoption during compliance tasks" },
       ]}
       reflection={`This project reinforced the importance of breaking down complex enterprise workflows into smaller and more manageable journeys. It highlighted how contextual guidance, visibility, and transparency can significantly reduce cognitive load in compliance-heavy systems designed for non-expert users.`}
       learnings={[
