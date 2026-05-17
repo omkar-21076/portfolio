@@ -132,7 +132,6 @@ The redesigned experience also introduced progress visibility, helping users und
 A major addition to the experience was the contextual chatbot support system. Since users were not legal experts and often struggled with compliance terminology, the chatbot dynamically updated suggested questions based on the screen the user was currently on. This helped users get immediate support without leaving the workflow or depending entirely on external teams for guidance.
 
 The overall design approach focused on creating smaller and more understandable journeys instead of overwhelming users with large compliance workflows at once. Minimal UI patterns, clearer hierarchy, and simplified flows helped reduce cognitive load while still supporting the complexity of the system.`,
-        image: applicable,
       }}
       constraints={[
         "The application was built using Angular and connected with multiple external systems during the compliance process. While the platform provided flexibility in design, one of the biggest concerns was maintaining usability within a heavy system architecture and ensuring that performance issues did not overwhelm users.",
