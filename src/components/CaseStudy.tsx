@@ -348,25 +348,6 @@ export function CaseStudy(p: CaseStudyProps) {
           </section>
         )}
 
-        {/* Impact (qualitative) */}
-        {p.impact && p.impact.length > 0 && (
-          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
-            <Reveal>
-              <h2 className="font-serif text-3xl md:text-4xl">Impact</h2>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <ul className="space-y-3">
-                {p.impact.map((c, i) => (
-                  <li key={i} className="flex gap-3 text-base leading-relaxed">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </section>
-        )}
-
         {/* Reflection */}
         {p.reflection && (
           <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
