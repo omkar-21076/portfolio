@@ -94,6 +94,7 @@ The process also explored how curated experiences could help users discover new 
           },
         ],
       }}
+      screensVariant="phone-grid"
       screens={[
         {
           title: "Home screen",
