@@ -252,7 +252,7 @@ export function CaseStudy(p: CaseStudyProps) {
             <Reveal>
               <h2 className="font-serif text-3xl md:text-4xl">Key screens</h2>
             </Reveal>
-            <div className="mt-10 space-y-12">
+            <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
               {p.screens.map((s, i) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <figure>
@@ -260,14 +260,14 @@ export function CaseStudy(p: CaseStudyProps) {
                       <img
                         src={s.image}
                         alt={s.title}
-                        className="w-full object-cover"
+                        className="aspect-[9/19.5] w-full object-cover"
                         loading="lazy"
                       />
                     </div>
                     <figcaption className="mt-4">
-                      <p className="font-serif text-xl">{s.title}</p>
+                      <p className="font-serif text-base md:text-lg">{s.title}</p>
                       {s.caption && (
-                        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{s.caption}</p>
+                        <p className="mt-1 max-w-2xl text-xs md:text-sm text-muted-foreground">{s.caption}</p>
                       )}
                     </figcaption>
                   </figure>
