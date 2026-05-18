@@ -260,7 +260,7 @@ export function CaseStudy(p: CaseStudyProps) {
                       <img
                         src={s.image}
                         alt={s.title}
-                        className="aspect-[9/19.5] w-full object-cover"
+                        className="aspect-[9/16] w-full object-cover"
                         loading="lazy"
                       />
                     </div>
