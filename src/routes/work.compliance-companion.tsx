@@ -56,15 +56,9 @@ The system was primarily usable only for experienced users familiar with complia
 
 Another challenge was balancing usability with system complexity. The application was connected with multiple external systems during the compliance process, which increased load times and made the experience feel heavy for users already dealing with complicated workflows.`}
       research={{
-        intro: `The project followed a structured research and validation process to understand how users interacted with the system and where the biggest usability challenges existed.
+        intro: `The project followed a structured research and validation process to understand how users interacted with the system and where the biggest usability challenges existed. Users were first identified through the Early Bird Community, including both regular and moderate users of the tool. Surveys and task links were shared through Email and Viva Engage without step-by-step instructions in order to avoid design bias during testing. Responses were kept anonymous, while users could optionally participate in usability testing sessions. Survey findings were analyzed and converted into usability insights, which were later shared with stakeholders and development teams. Five users were selected for usability testing sessions where they completed tasks through screen-sharing sessions without interviewer guidance. Observations, struggles, and suggestions were captured throughout the process.
 
-Users were first identified through the Early Bird Community, including both regular and moderate users of the tool. Surveys and task links were shared through Email and Viva Engage without step-by-step instructions in order to avoid design bias during testing. Responses were kept anonymous, while users could optionally participate in usability testing sessions.
-
-Survey findings were analyzed and converted into usability insights, which were later shared with stakeholders and development teams. Five users were selected for usability testing sessions where they completed tasks through screen-sharing sessions without interviewer guidance. Observations, struggles, and suggestions were captured throughout the process.
-
-The findings from surveys and usability testing were then prioritized based on usability impact, accessibility standards, and sprint feasibility. Improvements were reviewed collaboratively with management and development teams before being aligned with sprint planning and implementation.
-
-Follow-up usability testing sessions were later conducted to validate whether the redesigned experience successfully addressed the identified usability issues.`,
+The findings from surveys and usability testing were then prioritized based on usability impact, accessibility standards, and sprint feasibility. Improvements were reviewed collaboratively with management and development teams before being aligned with sprint planning and implementation. Follow-up usability testing sessions were later conducted to validate whether the redesigned experience successfully addressed the identified usability issues.`,
         insights: [
           {
             quote:

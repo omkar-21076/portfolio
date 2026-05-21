@@ -1,18 +1,31 @@
-## Problem
+## Goal
 
-The EatSure thumbnail in the Work listing is clipped on the left. The current `src/assets/work-eatsure.jpg` is the full hero composition (EatSure logo + headline text + two phone screens) but it renders inside a 280px-wide card with `aspect-[4/3] object-cover`, so the left side text gets cropped and the result looks unbalanced next to the Legal DMS and Compliance Companion thumbnails.
+Make the Research intro paragraph in all case studies render full-width (~`max-w-5xl`) and split the Compliance Companion intro into two cleaner paragraphs.
 
-## Fix
+## Changes
 
-Regenerate `src/assets/work-eatsure.jpg` as a purpose-built 4:3 thumbnail:
+**1. `src/components/CaseStudy.tsx`** — render intro as multiple paragraphs and widen the column.
 
-- Source: existing `src/assets/eatsure-home.webp` (the home-screen phone screenshot)
-- Tool: `imagegen--edit_image` with `aspect_ratio: "4:3"`
-- Prompt: center the phone mockup on a warm cream background that matches the site palette, with generous padding and a soft shadow, no text overlay, fully visible phone
-- Output overwrites `src/assets/work-eatsure.jpg`
+Replace the single `<p>` at line 185 with a block that splits `p.research.intro` on blank lines (`\n\n`) and renders each chunk as its own `<p>`, inside a wider container:
 
-## Files touched
+```tsx
+<div className="mt-6 max-w-5xl space-y-4 text-base leading-relaxed">
+  {p.research.intro.split(/\n\n+/).map((para, i) => (
+    <p key={i}>{para}</p>
+  ))}
+</div>
+```
 
-- `src/assets/work-eatsure.jpg` (regenerated)
+This keeps Legal DMS and EatSure working unchanged (their intros stay a single paragraph) while letting any case study author multi-paragraph intros by inserting a blank line.
 
-No component code changes — `src/components/Work.tsx` already imports this path. The case study hero and gallery images are untouched.
+**2. `src/routes/work.compliance-companion.tsx`** — split the Research intro into two paragraphs at the natural topic shift (recruiting/data collection → analysis/validation).
+
+- **P1** ends after: *"…Observations, struggles, and suggestions were captured throughout the process."*
+- **P2** begins with: *"The findings from surveys and usability testing were then prioritized…"* and continues through the follow-up validation sentence.
+
+Done by inserting a blank line (`\n\n`) between those two sentences in the existing `research.intro` template string. No other copy changes.
+
+## Out of scope
+
+- Legal DMS and EatSure intro copy (untouched; they just inherit the wider container).
+- Insight quote cards, other sections, and image assets.
