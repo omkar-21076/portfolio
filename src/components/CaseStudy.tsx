@@ -182,7 +182,11 @@ export function CaseStudy(p: CaseStudyProps) {
               <h2 className="font-serif text-3xl md:text-4xl">Research</h2>
             </Reveal>
             <Reveal delay={0.05}>
-              <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.research.intro}</p>
+              <div className="mt-6 max-w-5xl space-y-4 text-base leading-relaxed">
+                {p.research.intro.split(/\n\n+/).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             </Reveal>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {p.research.insights.map((i, idx) => (
