@@ -1,21 +1,34 @@
 ## Goal
 
-Apply the same treatment as the Research intro to the Final solution section across all case studies: widen to `max-w-5xl` and render multi-paragraph text by splitting on blank lines.
+In the "Outcome & impact" section of the **Compliance Companion** case study only:
+1. Make all three cards equal height.
+2. Color the percentage values green, meeting WCAG AA contrast on the beige card background.
 
-## Change
+## Changes
 
-**`src/components/CaseStudy.tsx`** (line 336) — replace the single `<p>` with:
+### 1. `src/styles.css`
+Add a new semantic token for success/positive metric color, tuned for AA contrast (≥4.5:1) against `--card` (light beige) in light mode and against the dark card in dark mode.
 
-```tsx
-<div className="mt-6 max-w-5xl space-y-4 text-base leading-relaxed">
-  {p.solution.text.split(/\n\n+/).map((para, i) => (
-    <p key={i}>{para}</p>
-  ))}
-</div>
+```css
+:root { --success: oklch(0.45 0.13 150); }   /* deep green, ~#1f7a3d on beige */
+.dark { --success: oklch(0.78 0.15 150); }   /* light green for dark card */
 ```
 
-The Compliance Companion, Legal DMS, and EatSure `solution.text` strings already contain blank-line breaks, so each will automatically render as separate paragraphs at full width. No route file copy changes needed.
+Register in `@theme inline`:
+```css
+--color-success: var(--success);
+```
+
+### 2. `src/components/CaseStudy.tsx`
+- Add optional prop `accentOutcomes?: boolean` to `CaseStudyProps`.
+- In the Outcomes section (line ~393–402):
+  - Add `h-full` to the inner card `<div>` and to the `Reveal` wrapper so all cards stretch to the tallest sibling (fixes uneven heights when labels wrap differently).
+  - When `p.accentOutcomes` is true, render the value with `text-success` instead of the default foreground color.
+
+### 3. `src/routes/work.compliance-companion.tsx`
+Pass `accentOutcomes` to the `<CaseStudy />` component. No other case-study route is touched, so Legal DMS and Eatsure remain unchanged.
 
 ## Out of scope
 
-Section image, headings, and surrounding sections.
+- Other case studies' Outcome sections.
+- Label text color, card border, spacing, or typography.
