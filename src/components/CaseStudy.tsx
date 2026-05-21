@@ -38,6 +38,7 @@ export type CaseStudyProps = {
   constraints?: string[];
   collaboration?: string;
   outcomes?: { value: string; label: string }[];
+  accentOutcomes?: boolean;
   impact?: string[];
   reflection?: string;
   learnings?: string[];
