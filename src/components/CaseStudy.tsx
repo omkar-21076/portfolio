@@ -393,9 +393,9 @@ export function CaseStudy(p: CaseStudyProps) {
             </Reveal>
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               {p.outcomes.map((o, i) => (
-                <Reveal key={i} delay={0.05 * i}>
-                  <div className="rounded-lg border border-border bg-card p-8">
-                    <p className="font-serif text-4xl md:text-5xl">{o.value}</p>
+                <Reveal key={i} delay={0.05 * i} className="h-full">
+                  <div className="h-full rounded-lg border border-border bg-card p-8">
+                    <p className={`font-serif text-4xl md:text-5xl ${p.accentOutcomes ? "text-success" : ""}`}>{o.value}</p>
                     <p className="mt-3 text-sm text-muted-foreground">{o.label}</p>
                   </div>
                 </Reveal>
