@@ -333,7 +333,11 @@ export function CaseStudy(p: CaseStudyProps) {
               <h2 className="font-serif text-3xl md:text-4xl">Final solution</h2>
             </Reveal>
             <Reveal delay={0.05}>
-              <p className="mt-6 max-w-3xl text-base leading-relaxed">{p.solution.text}</p>
+              <div className="mt-6 max-w-5xl space-y-4 text-base leading-relaxed">
+                {p.solution.text.split(/\n\n+/).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             </Reveal>
             {p.solution.image && (
               <Reveal delay={0.1}>
