@@ -1,6 +1,7 @@
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
 import selfServicePortalThumb from "@/assets/writing-self-service-portal.png";
+import aiBuildersThumb from "@/assets/writing-ai-builders.png";
 
 type Tile = {
   source: "Medium" | "LinkedIn";
