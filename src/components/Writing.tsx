@@ -95,13 +95,14 @@ export function Writing() {
               >
                 {t.image && (
                   <>
+                    <div className="absolute inset-0 bg-black" />
                     <img
                       src={t.image}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/70 to-transparent" />
                   </>
                 )}
                 <div
