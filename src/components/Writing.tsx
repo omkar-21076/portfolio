@@ -30,6 +30,13 @@ const tiles: Tile[] = [
     className: "md:col-span-2 md:row-span-2",
   },
   {
+    source: "LinkedIn",
+    title: "Understanding SaaS Products",
+    date: "2024",
+    href: "https://www.linkedin.com/posts/omkar-raut_userexperience-saasdesign-saasproduct-activity-7166819851749974017-60Eb?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOUDR0BNZ2HZNYy2nuW_r-uwvHpRZywQIE",
+    className: "md:col-span-2",
+  },
+  {
     source: "Medium",
     title: "Designing for cognitive load: less to remember, more to do",
     date: "Mar 2025",
