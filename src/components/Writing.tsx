@@ -37,6 +37,13 @@ const tiles: Tile[] = [
     className: "md:col-span-2",
   },
   {
+    source: "LinkedIn",
+    title: "Prototyping using variable/modes and conditional statements",
+    date: "2024",
+    href: "https://www.linkedin.com/posts/omkar-raut_config2023-prototyping-userexperiencedesign-activity-7085939943125979136-sL2s?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOUDR0BNZ2HZNYy2nuW_r-uwvHpRZywQIE",
+    className: "md:col-span-2",
+  },
+  {
     source: "Medium",
     title: "Designing for cognitive load: less to remember, more to do",
     date: "Mar 2025",
