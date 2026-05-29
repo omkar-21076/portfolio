@@ -15,6 +15,14 @@ type Tile = {
 const tiles: Tile[] = [
   {
     source: "Medium",
+    title: "AI can build an app in minutes, but can it solve a problem?",
+    date: "2025",
+    href: "https://medium.com/@omkar-raut/ai-can-build-an-app-in-minutes-but-can-it-solve-a-problem-d7c46a6392f7",
+    image: aiBuildersThumb,
+    className: "md:col-span-2 md:row-span-2",
+  },
+  {
+    source: "Medium",
     title: "Building a user-friendly self-service portal: tips for UX design & implementation",
     date: "Jan 2025",
     href: "https://medium.com/@omkar-raut/building-a-user-friendly-self-service-portal-tips-for-ux-design-implementation-ff97f801e8b4",
