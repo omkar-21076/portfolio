@@ -1,6 +1,7 @@
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
 import selfServicePortalThumb from "@/assets/writing-self-service-portal.png";
+import aiBuildersThumb from "@/assets/writing-ai-builders.png";
 
 type Tile = {
   source: "Medium" | "LinkedIn";
@@ -12,6 +13,14 @@ type Tile = {
 };
 
 const tiles: Tile[] = [
+  {
+    source: "Medium",
+    title: "AI can build an app in minutes, but can it solve a problem?",
+    date: "2025",
+    href: "https://medium.com/@omkar-raut/ai-can-build-an-app-in-minutes-but-can-it-solve-a-problem-d7c46a6392f7",
+    image: aiBuildersThumb,
+    className: "md:col-span-2 md:row-span-2",
+  },
   {
     source: "Medium",
     title: "Building a user-friendly self-service portal: tips for UX design & implementation",
@@ -86,13 +95,14 @@ export function Writing() {
               >
                 {t.image && (
                   <>
+                    <div className="absolute inset-0 bg-black" />
                     <img
                       src={t.image}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/70 to-transparent" />
                   </>
                 )}
                 <div
