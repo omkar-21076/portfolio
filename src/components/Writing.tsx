@@ -1,5 +1,6 @@
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
+import selfServicePortalThumb from "@/assets/writing-self-service-portal.png";
 
 type Tile = {
   source: "Medium" | "LinkedIn";
@@ -7,15 +8,24 @@ type Tile = {
   date: string;
   href: string;
   className: string;
+  image?: string;
 };
 
 const tiles: Tile[] = [
   {
     source: "Medium",
+    title: "Building a user-friendly self-service portal: tips for UX design & implementation",
+    date: "Jan 2025",
+    href: "https://medium.com/@omkar-raut/building-a-user-friendly-self-service-portal-tips-for-ux-design-implementation-ff97f801e8b4",
+    image: selfServicePortalThumb,
+    className: "md:col-span-2 md:row-span-2",
+  },
+  {
+    source: "Medium",
     title: "Designing for cognitive load: less to remember, more to do",
     date: "Mar 2025",
     href: "#",
-    className: "md:col-span-2 md:row-span-2",
+    className: "md:col-span-2",
   },
   {
     source: "LinkedIn",
@@ -72,15 +82,50 @@ export function Writing() {
                 href={t.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full flex-col justify-between rounded-lg border border-border bg-card p-6 transition-colors hover:bg-secondary"
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-lg border border-border bg-card transition-colors hover:bg-secondary"
               >
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="rounded-full border border-border px-2 py-0.5">{t.source}</span>
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl leading-snug md:text-2xl">{t.title}</h3>
-                  <p className="mt-2 text-xs text-muted-foreground">{t.date}</p>
+                {t.image && (
+                  <>
+                    <img
+                      src={t.image}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                  </>
+                )}
+                <div
+                  className={`relative flex h-full flex-col justify-between p-6 ${
+                    t.image ? "text-white" : ""
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span
+                      className={`rounded-full border px-2 py-0.5 ${
+                        t.image
+                          ? "border-white/40 bg-black/30 text-white backdrop-blur-sm"
+                          : "border-border text-muted-foreground"
+                      }`}
+                    >
+                      {t.source}
+                    </span>
+                    <ArrowUpRight
+                      className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
+                        t.image ? "text-white" : "text-muted-foreground"
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl leading-snug md:text-2xl">{t.title}</h3>
+                    <p
+                      className={`mt-2 text-xs ${
+                        t.image ? "text-white/80" : "text-muted-foreground"
+                      }`}
+                    >
+                      {t.date}
+                    </p>
+                  </div>
                 </div>
               </a>
             </Reveal>
