@@ -1,25 +1,14 @@
-## Goal
-Add a second Medium article "AI can build an app in minutes, but can it solve a problem?" to the Articles & posts section, using the uploaded image as its thumbnail, fully visible (no cropping).
+## Plan: Add LinkedIn post tile
 
-## Changes
+Add a new LinkedIn post tile to the `tiles` array in `src/components/Writing.tsx`.
 
-### 1. Copy uploaded image
-- Copy `user-uploads://AI_Builders_2.png` → `src/assets/writing-ai-builders.png`.
+**Tile details:**
+- `source`: "LinkedIn"
+- `title`: "Prototyping using variable/modes and conditional statements"
+- `date`: "2024"
+- `href`: `https://www.linkedin.com/posts/omkar-raut_config2023-prototyping-userexperiencedesign-activity-7085939943125979136-sL2s?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOUDR0BNZ2HZNYy2nuW_r-uwvHpRZywQIE`
+- `className`: "md:col-span-2"
 
-### 2. `src/components/Writing.tsx`
-- Import the new asset: `import aiBuildersThumb from "@/assets/writing-ai-builders.png";`
-- Add a new tile at the top of the `tiles` array (before the self-service portal tile):
-  ```ts
-  {
-    source: "Medium",
-    title: "AI can build an app in minutes, but can it solve a problem?",
-    date: "2025",
-    href: "https://medium.com/@omkar-raut/ai-can-build-an-app-in-minutes-but-can-it-solve-a-problem-d7c46a6392f7",
-    image: aiBuildersThumb,
-    className: "md:col-span-2 md:row-span-2",
-  }
-  ```
-- Update image rendering so thumbnails display fully without cropping: change `object-cover` → `object-contain` on image tiles, and add a matching background color (`bg-black`) so letterboxed areas blend with the dark overlay. This keeps the existing hover scale and gradient overlay for legibility.
+**Placement:** Insert after the "Understanding SaaS Products" tile and before the "Designing for cognitive load" tile (i.e., as the third item in the array).
 
-## Out of scope
-- Other sections, layout grid changes, or restyling text-only tiles.
+**No thumbnail** — rendered as a text tile, consistent with other LinkedIn entries.
