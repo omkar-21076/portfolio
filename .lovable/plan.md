@@ -1,14 +1,27 @@
-## Plan: Add LinkedIn post tile
+## Plan: Replace Visuals section with 5 UI screens + captions
 
-Add a new LinkedIn post tile to the `tiles` array in `src/components/Writing.tsx`.
+**File:** `src/components/Visuals.tsx`
 
-**Tile details:**
-- `source`: "LinkedIn"
-- `title`: "Prototyping using variable/modes and conditional statements"
-- `date`: "2024"
-- `href`: `https://www.linkedin.com/posts/omkar-raut_config2023-prototyping-userexperiencedesign-activity-7085939943125979136-sL2s?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOUDR0BNZ2HZNYy2nuW_r-uwvHpRZywQIE`
-- `className`: "md:col-span-2"
+1. Upload the 5 uploaded images as Lovable Assets and create pointer JSONs under `src/assets/`:
+   - `visual-ai-review-dashboard.png`
+   - `visual-compare-plans.png`
+   - `visual-cultpass-fitness.png`
+   - `visual-pricing-page.png`
+   - `visual-luma-smartwatch.png`
 
-**Placement:** Insert after the "Understanding SaaS Products" tile and before the "Designing for cognitive load" tile (i.e., as the third item in the array).
+2. Replace the placeholder `tiles` array (currently 8 numbered tiles) with a typed array of 5 entries: `{ src, title }`.
 
-**No thumbnail** — rendered as a text tile, consistent with other LinkedIn entries.
+3. Update the marquee tile markup:
+   - Render `<img>` (object-cover) inside the tile frame.
+   - Below the image, render the title as a separate caption line **outside the image frame** (option C) — small muted text, centered, with top spacing.
+   - Keep existing marquee scroll behavior and the duplicated track for seamless loop.
+   - Use `aria-hidden` on the duplicated half; `alt={title}` on the originals, empty alt on duplicates.
+
+**Titles:**
+1. AI Design Review — Dashboard
+2. Compare Plans
+3. cultpass — Fitness Brand
+4. Pricing Page
+5. LUMA — Smartwatch Landing
+
+**Out of scope:** No changes to section heading, Reveal animations, or surrounding sections.
