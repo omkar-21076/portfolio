@@ -43,48 +43,6 @@ const tiles: Tile[] = [
     href: "https://www.linkedin.com/posts/omkar-raut_config2023-prototyping-userexperiencedesign-activity-7085939943125979136-sL2s?utm_source=share&utm_medium=member_desktop&rcm=ACoAACOUDR0BNZ2HZNYy2nuW_r-uwvHpRZywQIE",
     className: "md:col-span-2",
   },
-  {
-    source: "Medium",
-    title: "Designing for cognitive load: less to remember, more to do",
-    date: "Mar 2025",
-    href: "#",
-    className: "md:col-span-2",
-  },
-  {
-    source: "LinkedIn",
-    title: "Why accessibility is the default, not the addition",
-    date: "Feb 2025",
-    href: "#",
-    className: "md:col-span-2",
-  },
-  {
-    source: "Medium",
-    title: "Patterns that make enterprise UI feel calm",
-    date: "Jan 2025",
-    href: "#",
-    className: "md:col-span-2",
-  },
-  {
-    source: "LinkedIn",
-    title: "A tiny note on consistency",
-    date: "Dec 2024",
-    href: "#",
-    className: "",
-  },
-  {
-    source: "LinkedIn",
-    title: "Forms are a conversation",
-    date: "Nov 2024",
-    href: "#",
-    className: "",
-  },
-  {
-    source: "Medium",
-    title: "From Figma to ship: handoff that respects engineering",
-    date: "Oct 2024",
-    href: "#",
-    className: "md:col-span-2",
-  },
 ];
 
 export function Writing() {
