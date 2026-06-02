@@ -1,9 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
-import aiReviewDashboard from "@/assets/visual-ai-review-dashboard.png.asset.json";
-import comparePlans from "@/assets/visual-compare-plans.png.asset.json";
-import cultpassFitness from "@/assets/visual-cultpass-fitness.png.asset.json";
-import pricingPage from "@/assets/visual-pricing-page.png.asset.json";
-import lumaSmartwatch from "@/assets/visual-luma-smartwatch.png.asset.json";
+import aiReviewDashboard from "@/assets/visual-ai-review-dashboard.webp.asset.json";
+import comparePlans from "@/assets/visual-compare-plans.webp.asset.json";
+import cultpassFitness from "@/assets/visual-cultpass-fitness.webp.asset.json";
+import pricingPage from "@/assets/visual-pricing-page.webp.asset.json";
+import lumaSmartwatch from "@/assets/visual-luma-smartwatch.webp.asset.json";
 
 type Tile = { src: string; title: string };
 
@@ -16,8 +17,31 @@ const tiles: Tile[] = [
 ];
 
 export function Visuals() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current || shouldLoad) return;
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [shouldLoad]);
+
   return (
-    <section id="visuals" className="border-t border-border py-20 md:py-28">
+    <section
+      id="visuals"
+      ref={sectionRef}
+      className="border-t border-border py-20 md:py-28"
+    >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal>
           <p className="mb-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Visuals</p>
@@ -43,12 +67,17 @@ export function Visuals() {
                 aria-hidden={isDuplicate}
               >
                 <div className="h-64 w-full overflow-hidden rounded-lg border border-border bg-card md:h-80">
-                  <img
-                    src={t.src}
-                    alt={isDuplicate ? "" : t.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
+                  {shouldLoad ? (
+                    <img
+                      src={t.src}
+                      alt={isDuplicate ? "" : t.title}
+                      width={1600}
+                      height={1000}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : null}
                 </div>
                 <figcaption className="mt-3 text-center text-sm text-muted-foreground">
                   {t.title}
