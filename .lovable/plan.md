@@ -1,22 +1,37 @@
-## Plan: Keep only real articles in Writing section
+## Plan: Make UI screens load faster when visitors scroll to "Things I've made"
 
-**File:** `src/components/Writing.tsx`
+**Root cause:** the 5 screenshots are PNGs totaling ~9 MB (1–2.5 MB each). At that size, no amount of lazy-loading hides the wait — by the time someone scrolls to the section, the browser is still downloading multi-MB images. The fix is to shrink the files and start fetching them slightly before they enter view.
 
-Remove the 6 placeholder tiles (those with `href: "#"`) from the `tiles` array, keeping only the 4 real entries the user has actually written:
+### Step 1 — Re-encode the 5 screenshots to WebP (the big win)
 
-1. "AI can build an app in minutes, but can it solve a problem?" (Medium)
-2. "Building a user-friendly self-service portal..." (Medium)
-3. "Understanding SaaS Products" (LinkedIn)
-4. "Prototyping using variable/modes and conditional statements" (LinkedIn)
+In the sandbox, convert each source PNG to WebP at ~1600px wide, quality ~82. Expected size drop: **1–2.5 MB → ~150–300 KB per image** (roughly 10× smaller, no visible quality loss for UI screenshots).
 
-**Removed:**
-- Designing for cognitive load (Mar 2025)
-- Why accessibility is the default (Feb 2025)
-- Patterns that make enterprise UI feel calm (Jan 2025)
-- A tiny note on consistency (Dec 2024)
-- Forms are a conversation (Nov 2024)
-- From Figma to ship: handoff that respects engineering (Oct 2024)
+For each of the 5 images:
+1. Download the current asset from its CDN URL to `/tmp`.
+2. Re-encode to `.webp` with `cwebp` (or sharp).
+3. Upload via `lovable-assets create` and write a new `.asset.json` pointer.
+4. Delete the old PNG `.asset.json` via `delete_asset`.
 
-The existing bento grid layout (`md:grid-cols-4` with `md:col-span-2 md:row-span-2` on the first two image tiles, and `md:col-span-2` on the two LinkedIn tiles) already balances cleanly into a 2-row layout with the 4 remaining items. No layout changes needed.
+Files replaced:
+- `src/assets/visual-ai-review-dashboard.png.asset.json` → `.webp.asset.json`
+- `src/assets/visual-compare-plans.png.asset.json` → `.webp.asset.json`
+- `src/assets/visual-cultpass-fitness.png.asset.json` → `.webp.asset.json`
+- `src/assets/visual-pricing-page.png.asset.json` → `.webp.asset.json`
+- `src/assets/visual-luma-smartwatch.png.asset.json` → `.webp.asset.json`
 
-**Out of scope:** No changes to styling, heading, or other sections.
+### Step 2 — Start fetching just before the section enters view
+
+In `src/components/Visuals.tsx`:
+- Update the 5 imports to the new `.webp.asset.json` files.
+- Keep `loading="lazy"` + add `decoding="async"` on every `<img>`.
+- Add explicit `width`/`height` attributes so the browser reserves space and decodes faster.
+- Wrap the marquee in an IntersectionObserver with a generous `rootMargin` (e.g. `400px 0px`) so images begin downloading a bit before the section is on screen, not the moment it appears. Until then they stay lazy.
+
+### Out of scope
+
+- No layout, copy, animation, or marquee-behavior changes.
+- No changes to other sections.
+
+### Expected result
+
+Total payload for the section drops from ~9 MB to roughly ~1 MB, and images start arriving before the user reaches the section — so by the time it scrolls into view, tiles appear without the noticeable lag.
