@@ -1,37 +1,28 @@
-## Plan: Make UI screens load faster when visitors scroll to "Things I've made"
+## Plan: Redesign Contact section + Footer
 
-**Root cause:** the 5 screenshots are PNGs totaling ~9 MB (1–2.5 MB each). At that size, no amount of lazy-loading hides the wait — by the time someone scrolls to the section, the browser is still downloading multi-MB images. The fix is to shrink the files and start fetching them slightly before they enter view.
+Rebuild the end of the homepage using the **Editorial asymmetrical grid** direction. Only email and LinkedIn remain as contact actions.
 
-### Step 1 — Re-encode the 5 screenshots to WebP (the big win)
+### 1. `src/components/Contact.tsx` — rewrite
+- Remove the entire `socials` array and the row of 6 icon circles (Medium, Dribbble, X, GitHub, Instagram all go away).
+- New layout: 12-column grid using existing semantic tokens (`bg-background`, `text-foreground`, `border-border`).
+  - Top strip: small uppercase label "Contact / Collaborate" with a bottom border divider.
+  - Left (col-span-7): oversized "Let's<br/>talk." headline using `clamp(3.5rem, 10vw, 8.5rem)`, leading 0.85, tight tracking, with the period in muted ink.
+  - Right (col-span-5): the intro paragraph, then two stacked links:
+    - Email → `mailto:rautomkar21076@gmail.com` (text shows the address)
+    - LinkedIn → `https://www.linkedin.com/in/omkar-raut`
+  - Each link has the two-bar underline hover animation (right bar scales out, left bar scales in) using semantic colors.
+- Keep `Reveal` wrappers for the existing entrance animations.
+- Drop unused lucide-react imports.
 
-In the sandbox, convert each source PNG to WebP at ~1600px wide, quality ~82. Expected size drop: **1–2.5 MB → ~150–300 KB per image** (roughly 10× smaller, no visible quality loss for UI screenshots).
+### 2. `src/components/SiteFooter.tsx` — refine
+- Replace current footer with the bottom strip from the chosen direction: tiny uppercase tracked text, opacity-30, two groups:
+  - Left: "© 2026 Omkar Raut" · divider · "Based in India"
+  - Right: "Portfolio v2.0" · "Built with care"
+- Use existing `border-border` and `text-foreground` tokens (no hex values in components).
 
-For each of the 5 images:
-1. Download the current asset from its CDN URL to `/tmp`.
-2. Re-encode to `.webp` with `cwebp` (or sharp).
-3. Upload via `lovable-assets create` and write a new `.asset.json` pointer.
-4. Delete the old PNG `.asset.json` via `delete_asset`.
-
-Files replaced:
-- `src/assets/visual-ai-review-dashboard.png.asset.json` → `.webp.asset.json`
-- `src/assets/visual-compare-plans.png.asset.json` → `.webp.asset.json`
-- `src/assets/visual-cultpass-fitness.png.asset.json` → `.webp.asset.json`
-- `src/assets/visual-pricing-page.png.asset.json` → `.webp.asset.json`
-- `src/assets/visual-luma-smartwatch.png.asset.json` → `.webp.asset.json`
-
-### Step 2 — Start fetching just before the section enters view
-
-In `src/components/Visuals.tsx`:
-- Update the 5 imports to the new `.webp.asset.json` files.
-- Keep `loading="lazy"` + add `decoding="async"` on every `<img>`.
-- Add explicit `width`/`height` attributes so the browser reserves space and decodes faster.
-- Wrap the marquee in an IntersectionObserver with a generous `rootMargin` (e.g. `400px 0px`) so images begin downloading a bit before the section is on screen, not the moment it appears. Until then they stay lazy.
+### Color/token discipline
+- All colors come from `src/styles.css` tokens (`background`, `foreground`, `border`, `muted-foreground`). No raw hex in JSX. The prototype's `#f2ede1` / `#1a1a17` already match the current `--background` / `--foreground`.
 
 ### Out of scope
-
-- No layout, copy, animation, or marquee-behavior changes.
-- No changes to other sections.
-
-### Expected result
-
-Total payload for the section drops from ~9 MB to roughly ~1 MB, and images start arriving before the user reaches the section — so by the time it scrolls into view, tiles appear without the noticeable lag.
+- No changes to Hero, About, Work, Visuals, Writing, header nav, or routing.
+- No new dependencies.
