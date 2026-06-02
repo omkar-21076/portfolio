@@ -1,57 +1,77 @@
 import { Reveal } from "./Reveal";
-import { Linkedin, Github, Instagram, BookOpen, Dribbble, Twitter } from "lucide-react";
-
-const socials = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/", Icon: Linkedin },
-  { label: "Medium", href: "https://medium.com/@", Icon: BookOpen },
-  { label: "Dribbble", href: "https://dribbble.com/", Icon: Dribbble },
-  { label: "X / Twitter", href: "https://x.com/", Icon: Twitter },
-  { label: "GitHub", href: "https://github.com/", Icon: Github },
-  { label: "Instagram", href: "https://instagram.com/", Icon: Instagram },
-];
 
 export function Contact() {
   return (
-    <section id="contact" className="border-t border-border px-5 py-24 md:px-8 md:py-32">
-      <div className="mx-auto max-w-4xl text-center">
+    <section
+      id="contact"
+      className="border-t border-border px-5 py-24 md:px-8 md:py-32"
+    >
+      <div className="mx-auto w-full max-w-7xl text-foreground">
+        {/* Section header */}
         <Reveal>
-          <p className="mb-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Contact</p>
+          <div className="mb-16 w-full border-b border-border pb-8 md:mb-24">
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-muted-foreground">
+              Contact / Collaborate
+            </span>
+          </div>
         </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="font-serif text-5xl leading-tight md:text-7xl">
-            Let's talk.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mx-auto mt-6 max-w-lg text-muted-foreground">
-            Open to enterprise UX roles, freelance projects, and good conversations about design.
-          </p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <a
-            href="mailto:hello@omkarraut.design"
-            className="mt-10 inline-block text-xl font-medium underline decoration-1 underline-offset-8 transition-opacity hover:opacity-70 md:text-2xl"
-          >
-            hello@omkarraut.design
-          </a>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <ul className="mt-12 flex flex-wrap items-center justify-center gap-2">
-            {socials.map(({ label, href, Icon }) => (
-              <li key={label}>
+
+        {/* Asymmetrical grid */}
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-24">
+          {/* Left: oversized headline */}
+          <div className="lg:col-span-7">
+            <Reveal>
+              <h2
+                className="font-semibold leading-[0.85] tracking-tighter"
+                style={{ fontSize: "clamp(3.5rem, 10vw, 8.5rem)" }}
+              >
+                Let's
+                <br />
+                talk<span className="text-foreground/20">.</span>
+              </h2>
+            </Reveal>
+          </div>
+
+          {/* Right: copy + actions */}
+          <div className="flex flex-col justify-start pt-4 lg:col-span-5 lg:pt-16">
+            <Reveal delay={0.1}>
+              <p className="mb-16 max-w-sm text-lg leading-relaxed text-foreground/80 md:text-xl">
+                Open to enterprise UX roles, freelance projects, and good
+                conversations about design.
+              </p>
+            </Reveal>
+
+            <div className="flex flex-col gap-6">
+              <Reveal delay={0.15}>
                 <a
-                  href={href}
+                  href="mailto:rautomkar21076@gmail.com"
+                  className="group inline-flex w-fit flex-col"
+                >
+                  <span className="text-xl font-semibold tracking-tight md:text-2xl lg:text-3xl">
+                    rautomkar21076@gmail.com
+                  </span>
+                  <span className="h-px w-full origin-right scale-x-100 bg-foreground transition-transform duration-500 ease-in-out group-hover:scale-x-0" />
+                  <span className="-mt-px h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
+                </a>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <a
+                  href="https://www.linkedin.com/in/omkar-raut"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                  className="group inline-flex w-fit flex-col"
                 >
-                  <Icon className="h-5 w-5" />
+                  <span className="text-xl font-semibold tracking-tight md:text-2xl lg:text-3xl">
+                    LinkedIn
+                  </span>
+                  <span className="h-px w-full origin-right scale-x-100 bg-foreground transition-transform duration-500 ease-in-out group-hover:scale-x-0" />
+                  <span className="-mt-px h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-in-out group-hover:scale-x-100" />
                 </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+              </Reveal>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
