@@ -19,10 +19,8 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <h1 className="mt-8 font-serif text-[clamp(3.5rem,8.75vw,7rem)] font-medium leading-[0.9] tracking-tight">
-              Omkar
-              <br />
-              <span className="italic lg:ml-20">Raut</span>
+            <h1 className="mt-8 whitespace-nowrap font-serif text-[clamp(3rem,7.5vw,6rem)] font-medium leading-[0.9] tracking-tight">
+              Omkar <span className="italic">Raut</span>
             </h1>
           </Reveal>
 

@@ -1,24 +1,26 @@
-## Content Refinement — Hero & About Sections
+## Content & Layout Refinements
 
-Scope: text-only changes. No layout, color, spacing, typography family, image treatment, navigation, or section structure changes.
+Scope: three targeted updates. No redesign, color, typography family, spacing system, navigation, or image changes.
 
-### 1. `src/components/Hero.tsx`
-- **Role label**: Replace "UX Designer at Siemens Healthineers" with "UX Designer focused on Enterprise Systems & Accessibility"
-- **Heading size**: Reduce the `clamp(4rem,10vw,8rem)` by ~12.5% to `clamp(3.5rem, 8.75vw, 7rem)` to improve balance with the updated copy. Keep the same `font-serif`, `font-medium`, `leading-[0.9]`, `tracking-tight`, and italic "Raut" styling.
-- **Description**: Replace "I turn complex enterprise workflows into simple, accessible products." with "Turning enterprise complexity into experiences people can understand, trust, and use efficiently."
-- CTA, image, framing, and all other layout elements remain untouched.
+### 1. Hero — Name on one line
+In `src/components/Hero.tsx`:
+- Remove the `<br />` and the `lg:ml-20` offset so the name reads continuously.
+- Slightly reduce the heading `clamp(...)` so "Omkar Raut" stays on a single line across all desktop widths without wrapping, while keeping visual prominence.
+- Preserve `font-serif`, `font-medium`, `leading-[0.9]`, `tracking-tight`, and italic styling.
 
-### 2. `src/components/About.tsx`
-- **Headline**: Replace "Three years designing enterprise software with a bias toward clarity, consistency, and accessibility." with "Creating enterprise experiences that reduce cognitive load and improve decision making."
-- **Supporting paragraph**: Replace the current paragraph with: "I design enterprise products used in complex environments where every decision carries effort. My focus is on reducing cognitive load through clear information hierarchy, consistent patterns, and accessible interactions—helping people complete tasks with greater confidence and efficiency."
-- **Metadata panel**: Update to:
-  - Role — UX Designer
-  - Company — Siemens Healthineers
-  - Domain — Healthcare · Enterprise
-  - Focus — Clarity · Accessibility
-- Remove the "Experience — 3 years" row entirely.
-- Layout, grid, borders, `Reveal` wrappers, and styling remain untouched.
+### 2. New section — Design Philosophy
+Create `src/components/DesignPhilosophy.tsx` and insert it between `<About />` and `<Work />` in `src/routes/index.tsx`.
+- Content: "Designing minimal experiences for complex systems, reducing cognitive load so people can focus on their work—not the tool."
+- Style: large editorial serif typography, generous whitespace (`py-20 md:py-28` or similar), `border-t`, `px-5 md:px-8`, no supporting paragraph, no icons/cards/illustrations/decorative elements.
+- Wrap in `<Reveal>` for consistency with adjacent sections.
+- Acts as a quiet transition between About and Projects.
+
+### 3. Contact — Supporting copy update
+In `src/components/Contact.tsx`:
+- Replace the paragraph "Open to enterprise UX roles, freelance projects, and good conversations about design." with:
+  "If you're building products that involve complexity, scale, or accessibility challenges, I'd be happy to connect."
+- Keep layout, styling, links, hover interactions, and section header untouched.
 
 ### Out of scope
-- No changes to Visuals, Work, Writing, Contact, Footer, SiteHeader, or routing.
+- No changes to About, Work, Visuals, Writing, SiteHeader, SiteFooter, or routing beyond inserting the new component.
 - No new dependencies.
