@@ -2,6 +2,7 @@ import { createFileRoute, useLocation } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
+import { DesignPhilosophy } from "@/components/DesignPhilosophy";
 import { Work } from "@/components/Work";
 import { Visuals } from "@/components/Visuals";
 import { Writing } from "@/components/Writing";
@@ -31,6 +32,7 @@ function Index() {
     <>
       <Hero />
       <About />
+      <DesignPhilosophy />
       <Work />
       <Visuals />
       <Writing />

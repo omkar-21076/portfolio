@@ -36,8 +36,8 @@ export function Contact() {
           <div className="flex flex-col justify-start pt-4 lg:col-span-5 lg:pt-16">
             <Reveal delay={0.1}>
               <p className="mb-16 max-w-sm text-lg leading-relaxed text-foreground/80 md:text-xl">
-                Open to enterprise UX roles, freelance projects, and good
-                conversations about design.
+                If you're building products that involve complexity, scale, or
+                accessibility challenges, I'd be happy to connect.
               </p>
             </Reveal>
 
