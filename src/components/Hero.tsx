@@ -13,13 +13,13 @@ export function Hero() {
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-foreground" />
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-foreground">
-                UX Designer at Siemens Healthineers
+                UX Designer focused on Enterprise Systems & Accessibility
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={0.05}>
-            <h1 className="mt-8 font-serif text-[clamp(4rem,10vw,8rem)] font-medium leading-[0.9] tracking-tight">
+            <h1 className="mt-8 font-serif text-[clamp(3.5rem,8.75vw,7rem)] font-medium leading-[0.9] tracking-tight">
               Omkar
               <br />
               <span className="italic lg:ml-20">Raut</span>
@@ -29,7 +29,7 @@ export function Hero() {
           <div className="mt-10 max-w-md space-y-8">
             <Reveal delay={0.1}>
               <p className="text-xl leading-relaxed text-muted-foreground md:text-2xl">
-                I turn complex enterprise workflows into simple, accessible products.
+                Turning enterprise complexity into experiences people can understand, trust, and use efficiently.
               </p>
             </Reveal>
 
