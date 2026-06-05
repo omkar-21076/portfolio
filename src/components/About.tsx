@@ -10,17 +10,18 @@ export function About() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-serif text-4xl leading-tight md:text-5xl">
-              Three years designing enterprise software with a bias toward
-              <span className="text-muted-foreground"> clarity</span>,
-              <span className="text-muted-foreground"> consistency</span>, and
-              <span className="text-muted-foreground"> accessibility</span>.
+              Creating enterprise experiences that reduce
+              <span className="text-muted-foreground"> cognitive load</span> and improve
+              <span className="text-muted-foreground"> decision making</span>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
-              I focus on minimal design that reduces cognitive load — fewer decisions,
-              clearer hierarchy, and consistent patterns. My work spans complex internal
-              tools where good UX quietly removes hours of friction from people's day.
+              I design enterprise products used in complex environments where every
+              decision carries effort. My focus is on reducing cognitive load through
+              clear information hierarchy, consistent patterns, and accessible
+              interactions—helping people complete tasks with greater confidence and
+              efficiency.
             </p>
           </Reveal>
         </div>
@@ -29,8 +30,8 @@ export function About() {
             {[
               ["Role", "UX Designer"],
               ["Company", "Siemens Healthineers"],
-              ["Focus", "Enterprise · Accessibility"],
-              ["Experience", "3 years"],
+              ["Domain", "Healthcare · Enterprise"],
+              ["Focus", "Clarity · Accessibility"],
             ].map(([k, v]) => (
               <div key={k} className="flex justify-between gap-4">
                 <dt className="text-muted-foreground">{k}</dt>

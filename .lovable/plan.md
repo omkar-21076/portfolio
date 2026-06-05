@@ -1,28 +1,24 @@
-## Plan: Redesign Contact section + Footer
+## Content Refinement — Hero & About Sections
 
-Rebuild the end of the homepage using the **Editorial asymmetrical grid** direction. Only email and LinkedIn remain as contact actions.
+Scope: text-only changes. No layout, color, spacing, typography family, image treatment, navigation, or section structure changes.
 
-### 1. `src/components/Contact.tsx` — rewrite
-- Remove the entire `socials` array and the row of 6 icon circles (Medium, Dribbble, X, GitHub, Instagram all go away).
-- New layout: 12-column grid using existing semantic tokens (`bg-background`, `text-foreground`, `border-border`).
-  - Top strip: small uppercase label "Contact / Collaborate" with a bottom border divider.
-  - Left (col-span-7): oversized "Let's<br/>talk." headline using `clamp(3.5rem, 10vw, 8.5rem)`, leading 0.85, tight tracking, with the period in muted ink.
-  - Right (col-span-5): the intro paragraph, then two stacked links:
-    - Email → `mailto:rautomkar21076@gmail.com` (text shows the address)
-    - LinkedIn → `https://www.linkedin.com/in/omkar-raut`
-  - Each link has the two-bar underline hover animation (right bar scales out, left bar scales in) using semantic colors.
-- Keep `Reveal` wrappers for the existing entrance animations.
-- Drop unused lucide-react imports.
+### 1. `src/components/Hero.tsx`
+- **Role label**: Replace "UX Designer at Siemens Healthineers" with "UX Designer focused on Enterprise Systems & Accessibility"
+- **Heading size**: Reduce the `clamp(4rem,10vw,8rem)` by ~12.5% to `clamp(3.5rem, 8.75vw, 7rem)` to improve balance with the updated copy. Keep the same `font-serif`, `font-medium`, `leading-[0.9]`, `tracking-tight`, and italic "Raut" styling.
+- **Description**: Replace "I turn complex enterprise workflows into simple, accessible products." with "Turning enterprise complexity into experiences people can understand, trust, and use efficiently."
+- CTA, image, framing, and all other layout elements remain untouched.
 
-### 2. `src/components/SiteFooter.tsx` — refine
-- Replace current footer with the bottom strip from the chosen direction: tiny uppercase tracked text, opacity-30, two groups:
-  - Left: "© 2026 Omkar Raut" · divider · "Based in India"
-  - Right: "Portfolio v2.0" · "Built with care"
-- Use existing `border-border` and `text-foreground` tokens (no hex values in components).
-
-### Color/token discipline
-- All colors come from `src/styles.css` tokens (`background`, `foreground`, `border`, `muted-foreground`). No raw hex in JSX. The prototype's `#f2ede1` / `#1a1a17` already match the current `--background` / `--foreground`.
+### 2. `src/components/About.tsx`
+- **Headline**: Replace "Three years designing enterprise software with a bias toward clarity, consistency, and accessibility." with "Creating enterprise experiences that reduce cognitive load and improve decision making."
+- **Supporting paragraph**: Replace the current paragraph with: "I design enterprise products used in complex environments where every decision carries effort. My focus is on reducing cognitive load through clear information hierarchy, consistent patterns, and accessible interactions—helping people complete tasks with greater confidence and efficiency."
+- **Metadata panel**: Update to:
+  - Role — UX Designer
+  - Company — Siemens Healthineers
+  - Domain — Healthcare · Enterprise
+  - Focus — Clarity · Accessibility
+- Remove the "Experience — 3 years" row entirely.
+- Layout, grid, borders, `Reveal` wrappers, and styling remain untouched.
 
 ### Out of scope
-- No changes to Hero, About, Work, Visuals, Writing, header nav, or routing.
+- No changes to Visuals, Work, Writing, Contact, Footer, SiteHeader, or routing.
 - No new dependencies.
