@@ -37,21 +37,17 @@ export function Visuals() {
   }, [shouldLoad]);
 
   return (
-    <section
-      id="visuals"
-      ref={sectionRef}
-      className="border-t border-border py-20 md:py-28"
-    >
+    <section id="visuals" ref={sectionRef} className="border-t border-border py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <Reveal>
           <p className="mb-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">Visuals</p>
         </Reveal>
         <Reveal delay={0.05}>
-          <h2 className="font-serif text-4xl md:text-5xl">Things I've made</h2>
+          <h2 className="font-serif text-4xl md:text-5xl">Visual Exploration</h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-3 max-w-xl text-muted-foreground">
-            A continuous scroll of recent visual explorations. Hover to pause.
+            A collection of interface explorations, visual experiments, and design exercises.
           </p>
         </Reveal>
       </div>
@@ -61,11 +57,7 @@ export function Visuals() {
           {[...tiles, ...tiles].map((t, i) => {
             const isDuplicate = i >= tiles.length;
             return (
-              <figure
-                key={i}
-                className="flex w-80 shrink-0 flex-col md:w-[420px]"
-                aria-hidden={isDuplicate}
-              >
+              <figure key={i} className="flex w-80 shrink-0 flex-col md:w-[420px]" aria-hidden={isDuplicate}>
                 <div className="h-64 w-full overflow-hidden rounded-lg border border-border bg-card md:h-80">
                   {shouldLoad ? (
                     <img
@@ -79,9 +71,7 @@ export function Visuals() {
                     />
                   ) : null}
                 </div>
-                <figcaption className="mt-3 text-center text-sm text-muted-foreground">
-                  {t.title}
-                </figcaption>
+                <figcaption className="mt-3 text-center text-sm text-muted-foreground">{t.title}</figcaption>
               </figure>
             );
           })}
