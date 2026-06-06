@@ -4,11 +4,8 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
 
-import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -44,51 +41,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Omkar Raut — UX Designer" },
-      { name: "description", content: "Omkar Raut is a UX Designer at Siemens Healthineers, focused on minimal, accessible enterprise design." },
-      { name: "author", content: "Omkar Raut" },
-      { property: "og:title", content: "Omkar Raut — UX Designer" },
-      { property: "og:description", content: "Omkar Raut is a UX Designer at Siemens Healthineers, focused on minimal, accessible enterprise design." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Omkar Raut — UX Designer" },
-      { name: "twitter:description", content: "Omkar Raut is a UX Designer at Siemens Healthineers, focused on minimal, accessible enterprise design." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1325c964-f9e2-46e6-8f14-32a02666d8a8/id-preview-04a8dcab--3ec02285-3a88-4825-9706-e54b7270aafe.lovable.app-1780758296850.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1325c964-f9e2-46e6-8f14-32a02666d8a8/id-preview-04a8dcab--3ec02285-3a88-4825-9706-e54b7270aafe.lovable.app-1780758296850.png" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
