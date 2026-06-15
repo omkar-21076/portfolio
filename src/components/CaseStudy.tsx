@@ -101,6 +101,11 @@ export function CaseStudy(p: CaseStudyProps) {
             <div key={m.k}>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.k}</p>
               <p className="mt-2 text-sm">{m.v}</p>
+              {m.k === "Role" && p.meta.roleDescription && (
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {p.meta.roleDescription}
+                </p>
+              )}
             </div>
           ))}
         </section>
