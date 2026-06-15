@@ -99,23 +99,26 @@ export function CaseStudy(p: CaseStudyProps) {
         </header>
 
         {/* Meta strip */}
-        <section
-          className={`mt-14 grid gap-6 border-y border-border py-8 ${
-            metaItems.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3"
-          }`}
-        >
-          {metaItems.map((m) => (
-            <div key={m.k}>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.k}</p>
-              <p className="mt-2 text-sm">{m.v}</p>
-              {m.k === "Role" && p.meta.roleDescription && (
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {p.meta.roleDescription}
-                </p>
-              )}
+        <section className="mt-14 border-y border-border py-8">
+          <div className={`grid gap-6 ${topCols}`}>
+            {topItems.map((m) => (
+              <div key={m.k}>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.k}</p>
+                <p className="mt-2 text-sm">{m.v}</p>
+              </div>
+            ))}
+          </div>
+          {hasRoleDescription && (
+            <div className="mt-8 border-t border-border pt-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Role</p>
+              <p className="mt-2 text-sm">{p.meta.role}</p>
+              <p className="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+                {p.meta.roleDescription}
+              </p>
             </div>
-          ))}
+          )}
         </section>
+
 
         {/* Focus areas */}
         {p.focusAreas && p.focusAreas.length > 0 && (
