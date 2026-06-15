@@ -36,6 +36,8 @@ export const Route = createFileRoute("/work/legal-dms")({
       heroImage={hero}
       meta={{
         role: "UX Designer",
+        roleDescription:
+          "I was the sole UX designer on the project, responsible for shaping the user experience across the SharePoint-based platform and Outlook add-in. I owned the UX direction, workflow improvements, interaction decisions, design documentation, developer walkthroughs, and implementation support. Since development was already in progress, I worked closely with stakeholders and developers to align UX decisions with Fluent UI constraints, sprint timelines, and technical feasibility.",
         platform: "SharePoint Online · Outlook add-in · Fluent UI",
       }}
       focusAreas={[
