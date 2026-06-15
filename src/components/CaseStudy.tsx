@@ -20,6 +20,7 @@ export type CaseStudyProps = {
   heroImage: string;
   meta: {
     role: string;
+    roleDescription?: string;
     platform: string;
     timeline?: string;
     team?: string;
