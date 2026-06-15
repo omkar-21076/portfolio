@@ -48,12 +48,19 @@ export type CaseStudyProps = {
 };
 
 export function CaseStudy(p: CaseStudyProps) {
+  const hasRoleDescription = Boolean(p.meta.roleDescription);
   const metaItems = [
     { k: "Role", v: p.meta.role },
     p.meta.timeline ? { k: "Timeline", v: p.meta.timeline } : null,
     p.meta.team ? { k: "Team", v: p.meta.team } : null,
     { k: "Platform", v: p.meta.platform },
   ].filter(Boolean) as { k: string; v: string }[];
+
+  const topItems = hasRoleDescription
+    ? metaItems.filter((m) => m.k !== "Role")
+    : metaItems;
+  const topCols =
+    topItems.length >= 4 ? "md:grid-cols-4" : topItems.length === 3 ? "md:grid-cols-3" : topItems.length === 2 ? "md:grid-cols-2" : "md:grid-cols-1";
 
   return (
     <article className="px-5 pb-24 pt-10 md:px-8 md:pb-32 md:pt-16">
