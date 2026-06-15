@@ -41,6 +41,7 @@ export type CaseStudyProps = {
   outcomes?: { value: string; label: string }[];
   accentOutcomes?: boolean;
   impact?: string[];
+  impactPosition?: "after-challenge" | "after-screens";
   reflection?: string;
   learnings?: string[];
   prev?: CaseStudyNav;
@@ -61,6 +62,26 @@ export function CaseStudy(p: CaseStudyProps) {
     : metaItems;
   const topCols =
     topItems.length >= 4 ? "md:grid-cols-4" : topItems.length === 3 ? "md:grid-cols-3" : topItems.length === 2 ? "md:grid-cols-2" : "md:grid-cols-1";
+
+  const impactPosition = p.impactPosition ?? "after-screens";
+  const impactSection =
+    p.impact && p.impact.length > 0 ? (
+      <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
+        <Reveal>
+          <h2 className="font-serif text-3xl md:text-4xl">Impact</h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <ul className="space-y-3">
+            {p.impact.map((c, i) => (
+              <li key={i} className="flex gap-3 text-base leading-relaxed">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
+                {c}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </section>
+    ) : null;
 
   return (
     <article className="px-5 pb-24 pt-10 md:px-8 md:pb-32 md:pt-16">
@@ -172,6 +193,9 @@ export function CaseStudy(p: CaseStudyProps) {
             </Reveal>
           </section>
         )}
+
+        {/* Impact (placed after Challenge when requested) */}
+        {impactPosition === "after-challenge" && impactSection}
 
         {/* Goals */}
         {p.goals && p.goals.length > 0 && (
@@ -325,23 +349,7 @@ export function CaseStudy(p: CaseStudyProps) {
         )}
 
         {/* Impact (qualitative) — placed after Key screens */}
-        {p.impact && p.impact.length > 0 && (
-          <section className="mt-20 grid gap-10 md:grid-cols-[1fr_1.4fr]">
-            <Reveal>
-              <h2 className="font-serif text-3xl md:text-4xl">Impact</h2>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <ul className="space-y-3">
-                {p.impact.map((c, i) => (
-                  <li key={i} className="flex gap-3 text-base leading-relaxed">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground" />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </section>
-        )}
+        {impactPosition === "after-screens" && impactSection}
 
         {/* Final solution */}
         {p.solution && (
