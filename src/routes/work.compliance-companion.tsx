@@ -37,6 +37,8 @@ export const Route = createFileRoute("/work/compliance-companion")({
       heroImage={hero}
       meta={{
         role: "UX Designer",
+        roleDescription:
+          "I was the sole UX designer leading the end-to-end UX process for the product. I planned and conducted user research, analyzed survey and usability testing insights, identified key workflow issues, redesigned the guided experience, validated improvements with users, and aligned decisions with stakeholders and developers for implementation. UX decisions were owned by me, while continuously reviewed with teams to balance usability, compliance complexity, accessibility, and sprint feasibility.",
         platform: "Web · Angular",
       }}
       focusAreas={[
